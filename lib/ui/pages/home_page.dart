@@ -17,6 +17,9 @@ class HomePage extends StatelessWidget {
             H3(
               text: "Hola Daniel",
             ),
+            H1(
+              text: "Bienvenido Juan",
+            ),
           ],
         ),
       ),
