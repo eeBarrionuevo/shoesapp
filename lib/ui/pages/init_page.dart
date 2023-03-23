@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/pages/home_page.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 
 class InitPage extends StatefulWidget {
@@ -11,12 +12,10 @@ class InitPage extends StatefulWidget {
 }
 
 class _InitPageState extends State<InitPage> {
-  int indexPage = 1;
+  int indexPage = 0;
 
   List<Widget> pages = [
-    Center(
-      child: Text("Inicio"),
-    ),
+    HomePage(),
     Center(
       child: Text("Explorar"),
     ),
