@@ -11,11 +11,36 @@ class InitPage extends StatefulWidget {
 }
 
 class _InitPageState extends State<InitPage> {
+  int indexPage = 1;
+
+  List<Widget> pages = [
+    Center(
+      child: Text("Inicio"),
+    ),
+    Center(
+      child: Text("Explorar"),
+    ),
+    Center(
+      child: Text("Marcas"),
+    ),
+    Center(
+      child: Text("Favoritos"),
+    ),
+    Center(
+      child: Text("Perfil"),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: pages[indexPage],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
+        currentIndex: indexPage,
+        onTap: (int value) {
+          indexPage = value;
+          setState(() {});
+        },
         selectedFontSize: 12.0,
         unselectedFontSize: 12.0,
         selectedItemColor: BrandColor.primaryFontColor,
@@ -26,6 +51,9 @@ class _InitPageState extends State<InitPage> {
             icon: SvgPicture.asset(
               AssetData.iconStore,
               height: 22.0,
+              color: indexPage == 0
+                  ? BrandColor.primaryFontColor
+                  : BrandColor.primaryFontColor.withOpacity(0.45),
             ),
             label: "Inicio",
           ),
@@ -33,6 +61,9 @@ class _InitPageState extends State<InitPage> {
             icon: SvgPicture.asset(
               AssetData.iconRocket,
               height: 22.0,
+              color: indexPage == 1
+                  ? BrandColor.primaryFontColor
+                  : BrandColor.primaryFontColor.withOpacity(0.45),
             ),
             label: "Explorar",
           ),
@@ -40,6 +71,9 @@ class _InitPageState extends State<InitPage> {
             icon: SvgPicture.asset(
               AssetData.iconBrand,
               height: 22.0,
+              color: indexPage == 2
+                  ? BrandColor.primaryFontColor
+                  : BrandColor.primaryFontColor.withOpacity(0.45),
             ),
             label: "Marcas",
           ),
@@ -47,6 +81,9 @@ class _InitPageState extends State<InitPage> {
             icon: SvgPicture.asset(
               AssetData.iconFavorite,
               height: 22.0,
+              color: indexPage == 3
+                  ? BrandColor.primaryFontColor
+                  : BrandColor.primaryFontColor.withOpacity(0.45),
             ),
             label: "Favoritos",
           ),
@@ -54,6 +91,9 @@ class _InitPageState extends State<InitPage> {
             icon: SvgPicture.asset(
               AssetData.iconProfile,
               height: 22.0,
+              color: indexPage == 4
+                  ? BrandColor.primaryFontColor
+                  : BrandColor.primaryFontColor.withOpacity(0.45),
             ),
             label: "Perfil",
           ),
