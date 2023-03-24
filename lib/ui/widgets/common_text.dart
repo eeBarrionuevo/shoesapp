@@ -7,6 +7,8 @@ class BaseText extends StatelessWidget {
   Color? color;
   FontWeight? fontWeight;
   double? height;
+  int? maxLines;
+  TextOverflow? textOverflow;
 
   BaseText({
     required this.text,
@@ -14,11 +16,15 @@ class BaseText extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.height,
+    this.maxLines,
+    this.textOverflow,
   });
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: maxLines,
+      overflow: textOverflow,
       style: TextStyle(
         fontSize: fontSize,
         color: color ?? BrandColor.primaryFontColor,
@@ -117,10 +123,14 @@ class H5 extends StatelessWidget {
   String text;
   Color? color;
   double? height;
+  int? maxLines;
+  TextOverflow? textOverflow;
   H5({
     required this.text,
     this.color,
     this.height,
+    this.maxLines,
+    this.textOverflow,
   });
   @override
   Widget build(BuildContext context) {
@@ -130,6 +140,7 @@ class H5 extends StatelessWidget {
       color: color,
       fontWeight: FontWeight.w500,
       height: height,
+      maxLines: maxLines,
     );
   }
 }

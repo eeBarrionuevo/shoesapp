@@ -48,9 +48,14 @@ class HomePage extends StatelessWidget {
                             children: [
                               H6(
                                 text: "Adidas",
+                                color: BrandColor.primaryFontColor
+                                    .withOpacity(0.55),
                               ),
                               H5(
-                                text: "Adidas Samba OG ASDAD  asdsadsa",
+                                text:
+                                    "Adidas Samba OG ASDAD  asdsadsa asdsad asdasds",
+                                height: 1.1,
+                                maxLines: 2,
                               ),
                               H5(text: "S/ 259.00")
                             ],
