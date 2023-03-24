@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../general/brand_color.dart';
 
 SizedBox spacing4 = const SizedBox(height: 4);
 SizedBox spacing8 = const SizedBox(height: 8);
@@ -14,3 +17,14 @@ SizedBox spacing8Width = const SizedBox(width: 8);
 SizedBox spacing12Width = const SizedBox(width: 12);
 SizedBox spacing14Width = const SizedBox(width: 14);
 SizedBox spacing16Width = const SizedBox(width: 16);
+
+Center loadingWidget = const Center(
+  child: SizedBox(
+    width: 20,
+    height: 20,
+    child: CupertinoActivityIndicator(
+      radius: 7,
+      color: BrandColor.primaryColor,
+    ),
+  ),
+);
