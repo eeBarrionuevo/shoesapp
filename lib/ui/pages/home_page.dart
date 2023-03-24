@@ -16,12 +16,15 @@ class HomePage extends StatelessWidget {
             H2(
               text: "Hola de nuevo, espero que estes bien",
             ),
+            spacing20,
             H3(
               text: "Hola de nuevo, espero que estes bien",
             ),
+            spacing20,
             H4(
               text: "Hola de nuevo, espero que estes bien",
             ),
+            spacing20,
             H5(
               text: "Hola de nuevo, espero que estes bien",
             ),
