@@ -85,15 +85,64 @@ class HomePage extends StatelessWidget {
               ),
             ),
             GridView.builder(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemCount: 6,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                mainAxisSpacing: 6.0,
+                crossAxisSpacing: 6.0,
+                childAspectRatio: 0.9,
               ),
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  color: Colors.red,
+                  padding: const EdgeInsets.all(8.0),
+                  color: Colors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/e37f5cef58e244a09192ae2e015707ba_9366/Zapatillas_ADI2000_Amarillo_GZ6189_011_hover_standard.jpg",
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            errorWidget: (context, url, error) {
+                              return Image.asset(
+                                AssetData.imagePlaceholder,
+                              );
+                            },
+                            progressIndicatorBuilder: (context, url, progress) {
+                              return loadingWidget;
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            H6(
+                              text: "Adidas",
+                              color:
+                                  BrandColor.primaryFontColor.withOpacity(0.55),
+                            ),
+                            H5(
+                              text: "Adidas Adi2000",
+                            ),
+                            H5(
+                              text: "S/ 299.00",
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
