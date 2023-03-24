@@ -105,19 +105,44 @@ class HomePage extends StatelessWidget {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/e37f5cef58e244a09192ae2e015707ba_9366/Zapatillas_ADI2000_Amarillo_GZ6189_011_hover_standard.jpg",
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            errorWidget: (context, url, error) {
-                              return Image.asset(
-                                AssetData.imagePlaceholder,
-                              );
-                            },
-                            progressIndicatorBuilder: (context, url, progress) {
-                              return loadingWidget;
-                            },
+                          child: Stack(
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl:
+                                    "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/e37f5cef58e244a09192ae2e015707ba_9366/Zapatillas_ADI2000_Amarillo_GZ6189_011_hover_standard.jpg",
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                errorWidget: (context, url, error) {
+                                  return Image.asset(
+                                    AssetData.imagePlaceholder,
+                                  );
+                                },
+                                progressIndicatorBuilder:
+                                    (context, url, progress) {
+                                  return loadingWidget;
+                                },
+                              ),
+                              Positioned(
+                                top: 6,
+                                left: 6,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0,
+                                    vertical: 2.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: BrandColor.primaryColor
+                                        .withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  child: H6(
+                                    text: "-30%",
+                                    color: BrandColor.secondaryFontColor,
+                                    // fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
