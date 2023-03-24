@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../general/brand_color.dart';
 
+SizedBox spacing2 = const SizedBox(height: 2);
 SizedBox spacing4 = const SizedBox(height: 4);
 SizedBox spacing8 = const SizedBox(height: 8);
 SizedBox spacing12 = const SizedBox(height: 12);

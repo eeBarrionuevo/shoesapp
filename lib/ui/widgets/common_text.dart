@@ -125,12 +125,14 @@ class H5 extends StatelessWidget {
   double? height;
   int? maxLines;
   TextOverflow? textOverflow;
+  FontWeight? fontWeight;
   H5({
     required this.text,
     this.color,
     this.height,
     this.maxLines,
     this.textOverflow,
+    this.fontWeight,
   });
   @override
   Widget build(BuildContext context) {
@@ -138,7 +140,7 @@ class H5 extends StatelessWidget {
       text: text,
       fontSize: 14.0,
       color: color,
-      fontWeight: FontWeight.w500,
+      fontWeight: fontWeight,
       height: height,
       maxLines: maxLines,
       textOverflow: textOverflow,

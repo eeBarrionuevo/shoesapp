@@ -51,14 +51,18 @@ class HomePage extends StatelessWidget {
                                 color: BrandColor.primaryFontColor
                                     .withOpacity(0.55),
                               ),
+                              spacing2,
                               H5(
-                                text:
-                                    "Adidas Samba OG ASDAD  asdsadsa asdsad asdasds",
+                                text: "Adidas Samba OG",
                                 height: 1.1,
                                 maxLines: 2,
                                 textOverflow: TextOverflow.ellipsis,
                               ),
-                              H5(text: "S/ 259.00")
+                              spacing4,
+                              H5(
+                                text: "S/ 259.00",
+                                fontWeight: FontWeight.w700,
+                              )
                             ],
                           ),
                         ),
