@@ -7,4 +7,5 @@ class AssetData {
 
   static const imageLogo = "...";
   static const imageLogoLarge = "...";
+  static const imagePlaceholder = "assets/images/placeholder.png";
 }
