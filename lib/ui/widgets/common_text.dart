@@ -141,6 +141,7 @@ class H5 extends StatelessWidget {
       fontWeight: FontWeight.w500,
       height: height,
       maxLines: maxLines,
+      textOverflow: textOverflow,
     );
   }
 }

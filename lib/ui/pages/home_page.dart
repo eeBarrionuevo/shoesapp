@@ -56,6 +56,7 @@ class HomePage extends StatelessWidget {
                                     "Adidas Samba OG ASDAD  asdsadsa asdsad asdasds",
                                 height: 1.1,
                                 maxLines: 2,
+                                textOverflow: TextOverflow.ellipsis,
                               ),
                               H5(text: "S/ 259.00")
                             ],
