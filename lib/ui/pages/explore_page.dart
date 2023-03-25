@@ -16,7 +16,7 @@ class ExplorePage extends StatelessWidget {
           SliverAppBar(
             title: Text("Hola"),
             backgroundColor: Colors.black,
-            expandedHeight: 300,
+            expandedHeight: 180,
             floating: true,
             pinned: false,
             flexibleSpace: FlexibleSpaceBar(
@@ -64,6 +64,51 @@ class ExplorePage extends StatelessWidget {
                   color: Colors.green,
                 ),
               ],
+            ),
+          ),
+          SliverGrid.count(
+            crossAxisCount: 2,
+            children: [
+              Container(
+                color: Colors.amber,
+              ),
+              Container(
+                color: Colors.teal,
+              ),
+              Container(
+                color: Colors.pink,
+              ),
+            ],
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(20.0),
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Container(
+                    color: Colors.teal,
+                  );
+                },
+                childCount: 10,
+              ),
+              // delegate: SliverChildListDelegate(
+              //   [
+              //     Container(
+              //       color: Colors.amber,
+              //     ),
+              //     Container(
+              //       color: Colors.teal,
+              //     ),
+              //     Container(
+              //       color: Colors.pink,
+              //     ),
+              //   ],
+              // ),
             ),
           ),
         ],
