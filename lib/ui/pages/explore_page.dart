@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/item_offer_widget.dart';
 import 'package:shoesappclient/ui/widgets/item_product_widget.dart';
 
@@ -11,6 +12,7 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // body: CustomScrollView(
       //   slivers: [
       //     SliverAppBar(
@@ -119,8 +121,8 @@ class ExplorePage extends StatelessWidget {
             backgroundColor: BrandColor.primaryColor,
             floating: true,
             pinned: false,
-            // expandedHeight: 300.0,
-
+            centerTitle: true,
+            //expandedHeight: 300.0,
             title: TextField(
               cursorColor: BrandColor.secondaryFontColor,
               style: const TextStyle(
@@ -155,6 +157,26 @@ class ExplorePage extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
               ),
+            ),
+            titleSpacing: 16.0,
+            //collapsedHeight: 100,
+            toolbarHeight: 80,
+            shadowColor: BrandColor.primaryColor,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 14.0,
+                  ),
+                  child: H5(
+                    text: "Nuestros productos",
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
           ),
           SliverGrid(

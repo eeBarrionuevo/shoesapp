@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/pages/brand_page.dart';
 import 'package:shoesappclient/ui/pages/explore_page.dart';
 import 'package:shoesappclient/ui/pages/home_page.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
@@ -18,9 +19,7 @@ class _InitPageState extends State<InitPage> {
   List<Widget> pages = [
     HomePage(),
     ExplorePage(),
-    Center(
-      child: Text("Marcas"),
-    ),
+    BrandPage(),
     Center(
       child: Text("Favoritos"),
     ),
