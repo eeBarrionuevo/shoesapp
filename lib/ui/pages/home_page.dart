@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
@@ -11,14 +12,20 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 class HomePage extends StatelessWidget {
-  CollectionReference productReference =
-      FirebaseFirestore.instance.collection("products");
+  // CollectionReference productReference =
+  //     FirebaseFirestore.instance.collection("products");
+
+  FirestoreService firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
-    productReference.get().then((value) {
-      print(value.size);
-    });
+    firestoreService.getProducts();
+    // productReference.get().then((QuerySnapshot value) {
+    //   print(value.size);
+    //   value.docs.forEach((element) {
+    //     print(element.id);
+    //   });
+    // });
 
     return Scaffold(
       backgroundColor: Colors.white,
