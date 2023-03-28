@@ -20,7 +20,6 @@ class FirestoreService {
       ProductModel product =
           ProductModel.fromJson(item.data() as Map<String, dynamic>);
       products.add(product);
-      // print(product.toJson());
     }
 
     return products;
