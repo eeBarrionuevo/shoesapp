@@ -24,6 +24,22 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (snap.hasData) {
             List<ProductModel> products = snap.data;
+            List<ProductModel> productsDiscount = [];
+
+            // for (var item in products) {
+            //   if (item.discount > 0) {
+            //     productsDiscount.add(item);
+            //   }
+            // }
+
+            // products.forEach((item) {
+            //   if (item.discount > 0) {
+            //     productsDiscount.add(item);
+            //   }
+            // });
+
+            productsDiscount = products.where((e) => e.discount > 0).toList();
+
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -99,7 +115,7 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
-                    itemCount: 6,
+                    itemCount: products.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
