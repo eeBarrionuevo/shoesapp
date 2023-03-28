@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
@@ -10,8 +11,15 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 class HomePage extends StatelessWidget {
+  CollectionReference productReference =
+      FirebaseFirestore.instance.collection("products");
+
   @override
   Widget build(BuildContext context) {
+    productReference.get().then((value) {
+      print(value.size);
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
