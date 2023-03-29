@@ -4,6 +4,7 @@ import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
+import 'package:shoesappclient/ui/widgets/item_discount_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
@@ -32,59 +33,71 @@ class ItemOfferWidget extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
       ),
-      child: Row(
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                H6(
-                  text: model.brand,
-                  color: BrandColor.primaryFontColor.withOpacity(0.55),
-                ),
-                spacing2,
-                H5(
-                  text: model.name,
-                  height: 1.1,
-                  maxLines: 2,
-                  textOverflow: TextOverflow.ellipsis,
-                ),
-                spacing4,
-                Row(
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    H5(
-                      text: "S/ ${price.toStringAsFixed(2)}",
-                      fontWeight: FontWeight.w700,
+                    H6(
+                      text: model.brand,
+                      color: BrandColor.primaryFontColor.withOpacity(0.55),
                     ),
-                    spacing8Width,
-                    model.discount > 0
-                        ? H6(
-                            text: "S/ ${model.price.toStringAsFixed(2)}",
-                            color:
-                                BrandColor.primaryFontColor.withOpacity(0.55),
-                            textDecoration: TextDecoration.lineThrough,
-                          )
-                        : const SizedBox(),
+                    spacing2,
+                    H5(
+                      text: model.name,
+                      height: 1.1,
+                      maxLines: 2,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                    spacing4,
+                    Row(
+                      children: [
+                        H5(
+                          text: "S/ ${price.toStringAsFixed(2)}",
+                          fontWeight: FontWeight.w700,
+                        ),
+                        spacing8Width,
+                        model.discount > 0
+                            ? H6(
+                                text: "S/ ${model.price.toStringAsFixed(2)}",
+                                color: BrandColor.primaryFontColor
+                                    .withOpacity(0.55),
+                                textDecoration: TextDecoration.lineThrough,
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: CachedNetworkImage(
+                  imageUrl: model.image,
+                  height: 90.0,
+                  width: 105,
+                  fit: BoxFit.cover,
+                  errorWidget: (context, url, error) {
+                    return Image.asset(
+                      AssetData.imagePlaceholder,
+                    );
+                  },
+                  progressIndicatorBuilder: (context, url, progress) {
+                    return loadingWidget;
+                  },
+                ),
+              ),
+            ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: CachedNetworkImage(
-              imageUrl: model.image,
-              height: 90.0,
-              width: 105,
-              fit: BoxFit.cover,
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  AssetData.imagePlaceholder,
-                );
-              },
-              progressIndicatorBuilder: (context, url, progress) {
-                return loadingWidget;
-              },
+          Positioned(
+            top: 5,
+            right: 5,
+            child: ItemDiscountWidget(
+              discount: 10,
             ),
           ),
         ],
