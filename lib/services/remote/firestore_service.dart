@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shoesappclient/models/brand_model.dart';
 import 'package:shoesappclient/models/product_model.dart';
 
 class FirestoreService {
@@ -23,5 +24,19 @@ class FirestoreService {
     }
 
     return products;
+  }
+
+  Future<List<BrandModel>> getBrands() async {
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("brands");
+    QuerySnapshot collection = await reference.get();
+    List<QueryDocumentSnapshot> docs = collection.docs;
+    List<BrandModel> brands = [];
+    for (QueryDocumentSnapshot item in docs) {
+      BrandModel model =
+          BrandModel.fromJson(item.data() as Map<String, dynamic>);
+      brands.add(model);
+    }
+    return brands;
   }
 }
