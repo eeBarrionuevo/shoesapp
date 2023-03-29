@@ -16,6 +16,11 @@ class ItemProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double price = model.price;
+    if (model.discount > 0) {
+      price = price - (model.price * model.discount / 100);
+    }
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       color: Colors.white,
@@ -65,9 +70,19 @@ class ItemProductWidget extends StatelessWidget {
                 H5(
                   text: model.name,
                 ),
-                H5(
-                  text: "S/ ${model.price.toStringAsFixed(2)}",
-                  fontWeight: FontWeight.w700,
+                Row(
+                  children: [
+                    H5(
+                      text: "S/ $price",
+                      fontWeight: FontWeight.w700,
+                    ),
+                    spacing8Width,
+                    H6(
+                      text: "S/ ${model.price}",
+                      color: BrandColor.primaryFontColor.withOpacity(0.55),
+                      textDecoration: TextDecoration.lineThrough,
+                    ),
+                  ],
                 ),
               ],
             ),

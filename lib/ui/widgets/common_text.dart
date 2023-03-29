@@ -9,6 +9,7 @@ class BaseText extends StatelessWidget {
   double? height;
   int? maxLines;
   TextOverflow? textOverflow;
+  TextDecoration? textDecoration;
 
   BaseText({
     required this.text,
@@ -18,6 +19,7 @@ class BaseText extends StatelessWidget {
     this.height,
     this.maxLines,
     this.textOverflow,
+    this.textDecoration,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class BaseText extends StatelessWidget {
         color: color ?? BrandColor.primaryFontColor,
         fontWeight: fontWeight,
         height: height,
+        decoration: textDecoration,
       ),
     );
   }
@@ -152,10 +155,12 @@ class H6 extends StatelessWidget {
   String text;
   Color? color;
   double? height;
+  TextDecoration? textDecoration;
   H6({
     required this.text,
     this.color,
     this.height,
+    this.textDecoration,
   });
   @override
   Widget build(BuildContext context) {
@@ -165,6 +170,7 @@ class H6 extends StatelessWidget {
       color: color,
       fontWeight: FontWeight.w500,
       height: height,
+      textDecoration: textDecoration,
     );
   }
 }
