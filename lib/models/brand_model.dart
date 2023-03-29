@@ -1,8 +1,10 @@
 class BrandModel {
+  String? id;
   String name;
   bool status;
 
   BrandModel({
+    this.id,
     required this.name,
     required this.status,
   });
@@ -13,6 +15,7 @@ class BrandModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "status": status,
       };

@@ -35,6 +35,7 @@ class FirestoreService {
     for (QueryDocumentSnapshot item in docs) {
       BrandModel model =
           BrandModel.fromJson(item.data() as Map<String, dynamic>);
+      model.id = item.id;
       brands.add(model);
     }
     return brands;

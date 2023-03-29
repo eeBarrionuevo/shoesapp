@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/models/brand_model.dart';
 import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
@@ -20,10 +21,17 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: firestoreService.getProducts(),
+        future: Future.wait(
+          [
+            firestoreService.getProducts(),
+            firestoreService.getBrands(),
+          ],
+        ),
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (snap.hasData) {
-            List<ProductModel> products = snap.data;
+            List<ProductModel> products = snap.data[0];
+            List<BrandModel> brands = snap.data[1];
+            //Verificación y actualización de la marca
             List<ProductModel> productsDiscount = [];
             productsDiscount = products.where((e) => e.discount > 0).toList();
             return SingleChildScrollView(
