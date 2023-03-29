@@ -16,6 +16,11 @@ class ItemOfferWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double price = model.price;
+    if (model.discount > 0) {
+      price = price - (model.price * model.discount / 100);
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 12.0,
@@ -45,10 +50,23 @@ class ItemOfferWidget extends StatelessWidget {
                   textOverflow: TextOverflow.ellipsis,
                 ),
                 spacing4,
-                H5(
-                  text: "S/ ${model.price.toStringAsFixed(2)}",
-                  fontWeight: FontWeight.w700,
-                )
+                Row(
+                  children: [
+                    H5(
+                      text: "S/ ${price.toStringAsFixed(2)}",
+                      fontWeight: FontWeight.w700,
+                    ),
+                    spacing8Width,
+                    model.discount > 0
+                        ? H6(
+                            text: "S/ ${model.price.toStringAsFixed(2)}",
+                            color:
+                                BrandColor.primaryFontColor.withOpacity(0.55),
+                            textDecoration: TextDecoration.lineThrough,
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
               ],
             ),
           ),

@@ -73,15 +73,18 @@ class ItemProductWidget extends StatelessWidget {
                 Row(
                   children: [
                     H5(
-                      text: "S/ $price",
+                      text: "S/ ${price.toStringAsFixed(2)}",
                       fontWeight: FontWeight.w700,
                     ),
                     spacing8Width,
-                    H6(
-                      text: "S/ ${model.price}",
-                      color: BrandColor.primaryFontColor.withOpacity(0.55),
-                      textDecoration: TextDecoration.lineThrough,
-                    ),
+                    model.discount > 0
+                        ? H6(
+                            text: "S/ ${model.price.toStringAsFixed(2)}",
+                            color:
+                                BrandColor.primaryFontColor.withOpacity(0.55),
+                            textDecoration: TextDecoration.lineThrough,
+                          )
+                        : const SizedBox(),
                   ],
                 ),
               ],
