@@ -1,13 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/models/product_model.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
+import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/ui/widgets/item_offer_widget.dart';
 import 'package:shoesappclient/ui/widgets/item_product_widget.dart';
 
 class ExplorePage extends StatelessWidget {
-  const ExplorePage({super.key});
+  FirestoreService firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -115,154 +118,98 @@ class ExplorePage extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: BrandColor.primaryColor,
-            floating: true,
-            pinned: false,
-            centerTitle: true,
-            //expandedHeight: 300.0,
-            title: TextField(
-              cursorColor: BrandColor.secondaryFontColor,
-              style: const TextStyle(
-                fontSize: 14.0,
-                color: BrandColor.secondaryFontColor,
-              ),
-              // enabled: false,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: "Buscar producto...",
-                hintStyle: const TextStyle(
-                  fontSize: 14.0,
-                  color: BrandColor.secondaryFontColor,
-                ),
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.35),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  size: 18.0,
-                  color: BrandColor.secondaryFontColor,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 0,
-                  vertical: 12.0,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide.none,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            titleSpacing: 16.0,
-            //collapsedHeight: 100,
-            toolbarHeight: 80,
-            shadowColor: BrandColor.primaryColor,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 14.0,
+      body: FutureBuilder(
+        future: firestoreService.getProducts(),
+        builder: (BuildContext context, AsyncSnapshot snap) {
+          if (snap.hasData) {
+            List<ProductModel> products = snap.data;
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: BrandColor.primaryColor,
+                  floating: true,
+                  pinned: false,
+                  centerTitle: true,
+                  //expandedHeight: 300.0,
+                  title: TextField(
+                    cursorColor: BrandColor.secondaryFontColor,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      color: BrandColor.secondaryFontColor,
+                    ),
+                    // enabled: false,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      hintText: "Buscar producto...",
+                      hintStyle: const TextStyle(
+                        fontSize: 14.0,
+                        color: BrandColor.secondaryFontColor,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.35),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        size: 18.0,
+                        color: BrandColor.secondaryFontColor,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 12.0,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
-                  child: H5(
-                    text: "Nuestros productos",
-                    fontWeight: FontWeight.w700,
+                  titleSpacing: 16.0,
+                  //collapsedHeight: 100,
+                  toolbarHeight: 80,
+                  shadowColor: BrandColor.primaryColor,
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 14.0,
+                        ),
+                        child: H5(
+                          text: "Nuestros productos",
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 6.0,
+                    crossAxisSpacing: 6.0,
+                    childAspectRatio: 0.9,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return ItemProductWidget(
+                        model: products[index],
+                      );
+                      //return Text("Hola");
+                    },
+                    childCount: products.length,
                   ),
                 ),
               ],
-            ),
-          ),
-          SliverGrid(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 6.0,
-              crossAxisSpacing: 6.0,
-              childAspectRatio: 0.9,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                //return const ItemProductWidget();
-                return Text("Hola");
-              },
-              childCount: 10,
-            ),
-          ),
-        ],
+            );
+          }
+          return loadingWidget;
+        },
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       Container(
-      //         padding: const EdgeInsets.all(16.0),
-      //         color: BrandColor.primaryColor,
-      //         child: SafeArea(
-      //           child: Column(
-      //             mainAxisSize: MainAxisSize.min,
-      //             children: [
-      //               TextField(
-      //                 cursorColor: BrandColor.secondaryFontColor,
-      //                 style: const TextStyle(
-      //                   fontSize: 14.0,
-      //                   color: BrandColor.secondaryFontColor,
-      //                 ),
-      //                 // enabled: false,
-      //                 readOnly: true,
-      //                 decoration: InputDecoration(
-      //                   hintText: "Buscar producto...",
-      //                   hintStyle: const TextStyle(
-      //                     fontSize: 14.0,
-      //                     color: BrandColor.secondaryFontColor,
-      //                   ),
-      //                   filled: true,
-      //                   fillColor: Colors.white.withOpacity(0.35),
-      //                   prefixIcon: const Icon(
-      //                     Icons.search,
-      //                     size: 18.0,
-      //                     color: BrandColor.secondaryFontColor,
-      //                   ),
-      //                   contentPadding: const EdgeInsets.symmetric(
-      //                     horizontal: 0,
-      //                     vertical: 12.0,
-      //                   ),
-      //                   focusedBorder: OutlineInputBorder(
-      //                     borderRadius: BorderRadius.circular(30.0),
-      //                     borderSide: BorderSide.none,
-      //                   ),
-      //                   enabledBorder: OutlineInputBorder(
-      //                     borderRadius: BorderRadius.circular(30.0),
-      //                     borderSide: BorderSide.none,
-      //                   ),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //       GridView.builder(
-      //         padding: EdgeInsets.zero,
-      //         shrinkWrap: true,
-      //         physics: const ScrollPhysics(),
-      //         itemCount: 30,
-      //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //           crossAxisCount: 2,
-      //           mainAxisSpacing: 6.0,
-      //           crossAxisSpacing: 6.0,
-      //           childAspectRatio: 0.9,
-      //         ),
-      //         itemBuilder: (BuildContext context, int index) {
-      //           return ItemProductWidget();
-      //         },
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

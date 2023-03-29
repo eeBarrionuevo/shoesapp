@@ -25,23 +25,7 @@ class HomePage extends StatelessWidget {
           if (snap.hasData) {
             List<ProductModel> products = snap.data;
             List<ProductModel> productsDiscount = [];
-
-            // for (var item in products) {
-            //   if (item.discount > 0) {
-            //     productsDiscount.add(item);
-            //   }
-            // }
-
-            // products.forEach((item) {
-            //   if (item.discount > 0) {
-            //     productsDiscount.add(item);
-            //   }
-            // });
-
             productsDiscount = products.where((e) => e.discount > 0).toList();
-
-            print(productsDiscount.length);
-
             return SingleChildScrollView(
               child: Column(
                 children: [
