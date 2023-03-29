@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
@@ -7,6 +8,12 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 class ItemOfferWidget extends StatelessWidget {
+  ProductModel model;
+
+  ItemOfferWidget({
+    required this.model,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,19 +34,19 @@ class ItemOfferWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 H6(
-                  text: "Adidas",
+                  text: model.brand,
                   color: BrandColor.primaryFontColor.withOpacity(0.55),
                 ),
                 spacing2,
                 H5(
-                  text: "Adidas Samba OG",
+                  text: model.name,
                   height: 1.1,
                   maxLines: 2,
                   textOverflow: TextOverflow.ellipsis,
                 ),
                 spacing4,
                 H5(
-                  text: "S/ 259.00",
+                  text: "S/ ${model.price.toStringAsFixed(2)}",
                   fontWeight: FontWeight.w700,
                 )
               ],
@@ -48,8 +55,7 @@ class ItemOfferWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
             child: CachedNetworkImage(
-              imageUrl:
-                  "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/9882f76dc5b14339a92bac5a0160ac4f_9366/Zapatillas_Samba_Veganas_Blanco_H01877_01_standard.jpg",
+              imageUrl: model.image,
               height: 90.0,
               width: 105,
               fit: BoxFit.cover,

@@ -188,7 +188,8 @@ class ExplorePage extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return const ItemProductWidget();
+                //return const ItemProductWidget();
+                return Text("Hola");
               },
               childCount: 10,
             ),

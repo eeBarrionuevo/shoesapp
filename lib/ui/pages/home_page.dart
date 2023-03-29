@@ -40,6 +40,8 @@ class HomePage extends StatelessWidget {
 
             productsDiscount = products.where((e) => e.discount > 0).toList();
 
+            print(productsDiscount.length);
+
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -64,11 +66,13 @@ class HomePage extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
                             child: Row(
-                              children: [
-                                ItemOfferWidget(),
-                                ItemOfferWidget(),
-                                ItemOfferWidget(),
-                              ],
+                              children: productsDiscount
+                                  .map(
+                                    (e) => ItemOfferWidget(
+                                      model: e,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                           spacing4,
@@ -124,7 +128,9 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: 0.9,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      return ItemProductWidget();
+                      return ItemProductWidget(
+                        model: products[index],
+                      );
                     },
                   ),
                 ],

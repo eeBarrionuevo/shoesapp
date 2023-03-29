@@ -1,12 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
+import 'package:shoesappclient/ui/widgets/item_discount_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 
 class ItemProductWidget extends StatelessWidget {
-  const ItemProductWidget({super.key});
+  ProductModel model;
+
+  ItemProductWidget({
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +28,7 @@ class ItemProductWidget extends StatelessWidget {
               child: Stack(
                 children: [
                   CachedNetworkImage(
-                    imageUrl:
-                        "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/e37f5cef58e244a09192ae2e015707ba_9366/Zapatillas_ADI2000_Amarillo_GZ6189_011_hover_standard.jpg",
+                    imageUrl: model.image,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     errorWidget: (context, url, error) {
@@ -38,21 +43,11 @@ class ItemProductWidget extends StatelessWidget {
                   Positioned(
                     top: 6,
                     left: 6,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 2.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: BrandColor.primaryColor.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: H6(
-                        text: "-30%",
-                        color: BrandColor.secondaryFontColor,
-                        // fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    child: model.discount > 0
+                        ? ItemDiscountWidget(
+                            discount: model.discount,
+                          )
+                        : const SizedBox(),
                   ),
                 ],
               ),
@@ -64,14 +59,14 @@ class ItemProductWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 H6(
-                  text: "Adidas",
+                  text: model.brand,
                   color: BrandColor.primaryFontColor.withOpacity(0.55),
                 ),
                 H5(
-                  text: "Adidas Adi2000",
+                  text: model.name,
                 ),
                 H5(
-                  text: "S/ 299.00",
+                  text: "S/ ${model.price.toStringAsFixed(2)}",
                   fontWeight: FontWeight.w700,
                 ),
               ],
