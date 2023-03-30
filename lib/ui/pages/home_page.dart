@@ -34,6 +34,7 @@ class HomePage extends StatelessWidget {
             //Verificación y actualización de la marca
             List<ProductModel> productsDiscount = [];
             productsDiscount = products.where((e) => e.discount > 0).toList();
+
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -120,6 +121,15 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: 0.9,
                     ),
                     itemBuilder: (BuildContext context, int index) {
+                      String idBrand = products[index].brand;
+
+                      String newBrand = brands
+                          .where((element) => element.id == idBrand)
+                          .first
+                          .name;
+
+                      products[index].brand = newBrand;
+
                       return ItemProductWidget(
                         model: products[index],
                       );
