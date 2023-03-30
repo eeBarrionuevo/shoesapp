@@ -13,13 +13,14 @@ class FirestoreService {
 
     List<ProductModel> products = [];
 
-    // products = docs
-    //     .map((e) => ProductModel.fromJson(e.data() as Map<String, dynamic>))
-    //     .toList();
+    List<BrandModel> brands = await getBrands();
 
     for (QueryDocumentSnapshot item in docs) {
       ProductModel product =
           ProductModel.fromJson(item.data() as Map<String, dynamic>);
+      String newBrand =
+          brands.where((element) => element.id == product.brand).first.name;
+      product.brand = newBrand;
       products.add(product);
     }
 

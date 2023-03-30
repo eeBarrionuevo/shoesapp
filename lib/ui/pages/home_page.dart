@@ -21,17 +21,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: Future.wait(
-          [
-            firestoreService.getProducts(),
-            firestoreService.getBrands(),
-          ],
-        ),
+        future: firestoreService.getProducts(),
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (snap.hasData) {
-            List<ProductModel> products = snap.data[0];
-            List<BrandModel> brands = snap.data[1];
-            //Verificación y actualización de la marca
+            List<ProductModel> products = snap.data;
             List<ProductModel> productsDiscount = [];
             productsDiscount = products.where((e) => e.discount > 0).toList();
 
@@ -59,13 +52,11 @@ class HomePage extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             physics: const BouncingScrollPhysics(),
                             child: Row(
-                              children: productsDiscount
-                                  .map(
-                                    (e) => ItemOfferWidget(
-                                      model: e,
-                                    ),
-                                  )
-                                  .toList(),
+                              children: productsDiscount.map(
+                                (e) {
+                                  return ItemOfferWidget(model: e);
+                                },
+                              ).toList(),
                             ),
                           ),
                           spacing4,
@@ -121,15 +112,6 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: 0.9,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      String idBrand = products[index].brand;
-
-                      String newBrand = brands
-                          .where((element) => element.id == idBrand)
-                          .first
-                          .name;
-
-                      products[index].brand = newBrand;
-
                       return ItemProductWidget(
                         model: products[index],
                       );
