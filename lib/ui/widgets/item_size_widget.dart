@@ -3,7 +3,10 @@ import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 
 class ItemSizeWidget extends StatelessWidget {
-  const ItemSizeWidget({super.key});
+  double size;
+  ItemSizeWidget({
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class ItemSizeWidget extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: H5(
-        text: "10.5",
+        text: size.toString(),
         fontWeight: FontWeight.w600,
       ),
     );

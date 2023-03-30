@@ -7,6 +7,7 @@ import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/ui/widgets/item_discount_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
+import 'package:shoesappclient/utils/calculate.dart';
 
 class ItemProductWidget extends StatelessWidget {
   ProductModel model;
@@ -17,15 +18,16 @@ class ItemProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double price = model.price;
-    if (model.discount > 0) {
-      price = price - (model.price * model.discount / 100);
-    }
-
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ProductDetailPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(
+              model: model,
+            ),
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.all(8.0),
@@ -79,7 +81,8 @@ class ItemProductWidget extends StatelessWidget {
                   Row(
                     children: [
                       H5(
-                        text: "S/ ${price.toStringAsFixed(2)}",
+                        text:
+                            "S/ ${Calculate.getPrice(model.price, model.discount).toStringAsFixed(2)}",
                         fontWeight: FontWeight.w700,
                       ),
                       spacing8Width,
