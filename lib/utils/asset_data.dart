@@ -4,6 +4,7 @@ class AssetData {
   static const iconBrand = "assets/icons/tag.svg";
   static const iconFavorite = "assets/icons/heart.svg";
   static const iconProfile = "assets/icons/profile.svg";
+  static const iconWhatsApp = "assets/icons/whatsapp.svg";
 
   static const imageLogo = "...";
   static const imageLogoLarge = "...";
