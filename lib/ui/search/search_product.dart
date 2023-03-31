@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
 
 class SearchProduct extends SearchDelegate {
+  List<String> names = [
+    "Elvis",
+    "Daniel",
+    "Ramón",
+    "Julio",
+    "Roberto",
+    "Maria",
+    "Diego",
+    "Juan",
+    "Melissa",
+    "Wilson",
+    "Elí",
+    "Oliver"
+  ];
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      Text(
-        "buildActions",
-        style: TextStyle(
-          color: Colors.red,
+      IconButton(
+        onPressed: () {
+          query = "";
+        },
+        icon: Icon(
+          Icons.close,
         ),
       ),
     ];
@@ -25,11 +42,24 @@ class SearchProduct extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    print("BUILD RESULTS!!!!!!!!!!");
+    print(query);
     return Text("buildResults");
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text("buildSuggestions");
+    List<String> suggestions = names
+        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(suggestions[index]),
+        );
+      },
+    );
   }
 }
