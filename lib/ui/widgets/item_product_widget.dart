@@ -78,6 +78,7 @@ class ItemProductWidget extends StatelessWidget {
                   H5(
                     text: model.name,
                   ),
+                  spacing2,
                   Row(
                     children: [
                       H5(
