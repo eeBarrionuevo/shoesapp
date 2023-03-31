@@ -4,6 +4,7 @@ import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
+import 'package:shoesappclient/ui/widgets/item_search_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/calculate.dart';
 
@@ -31,7 +32,7 @@ class SearchProduct extends SearchDelegate {
 
   @override
   TextStyle get searchFieldStyle => TextStyle(
-        fontSize: 16.0,
+        fontSize: 14.0,
         color: BrandColor.primaryFontColor.withOpacity(0.80),
       );
 
@@ -43,11 +44,6 @@ class SearchProduct extends SearchDelegate {
         ),
         filled: true,
         fillColor: Colors.black.withOpacity(0.04),
-        // prefixIcon: const Icon(
-        //   Icons.search,
-        //   size: 18.0,
-        //   color: BrandColor.secondaryFontColor,
-        // ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12.0,
@@ -59,6 +55,37 @@ class SearchProduct extends SearchDelegate {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide.none,
+        ),
+      );
+
+  @override
+  ThemeData appBarTheme(BuildContext context) => Theme.of(context).copyWith(
+        appBarTheme: AppBarTheme(
+          toolbarHeight: 76,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: BrandColor.primaryFontColor.withOpacity(0.8),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.black.withOpacity(0.04),
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12.0,
+          ),
+          hintStyle: const TextStyle(
+            fontSize: 14.0,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: BorderSide.none,
+          ),
         ),
       );
 
@@ -95,79 +122,8 @@ class SearchProduct extends SearchDelegate {
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(
-              color: BrandColor.secondaryColor.withOpacity(0.4),
-            ),
-          ),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: CachedNetworkImage(
-                  imageUrl: suggestions[index].image,
-                  height: 90.0,
-                  width: 105,
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) {
-                    return Image.asset(
-                      AssetData.imagePlaceholder,
-                    );
-                  },
-                  progressIndicatorBuilder: (context, url, progress) {
-                    return loadingWidget;
-                  },
-                ),
-              ),
-              spacing12Width,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    H6(
-                      text: suggestions[index].brand,
-                      color: BrandColor.primaryFontColor.withOpacity(0.55),
-                    ),
-                    spacing2,
-                    H5(
-                      text: suggestions[index].name,
-                      height: 1.1,
-                      maxLines: 2,
-                      textOverflow: TextOverflow.ellipsis,
-                    ),
-                    spacing4,
-                    Row(
-                      children: [
-                        H5(
-                          text:
-                              "S/ ${Calculate.getPrice(suggestions[index].price, suggestions[index].discount).toStringAsFixed(2)}",
-                          fontWeight: FontWeight.w700,
-                        ),
-                        spacing8Width,
-                        suggestions[index].discount > 0
-                            ? H6(
-                                text:
-                                    "S/ ${suggestions[index].price.toStringAsFixed(2)}",
-                                color: BrandColor.primaryFontColor
-                                    .withOpacity(0.55),
-                                textDecoration: TextDecoration.lineThrough,
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        return ItemSearchWidget(
+          model: suggestions[index],
         );
       },
     );
@@ -182,79 +138,8 @@ class SearchProduct extends SearchDelegate {
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(
-              color: BrandColor.secondaryColor.withOpacity(0.4),
-            ),
-          ),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: CachedNetworkImage(
-                  imageUrl: suggestions[index].image,
-                  height: 90.0,
-                  width: 105,
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) {
-                    return Image.asset(
-                      AssetData.imagePlaceholder,
-                    );
-                  },
-                  progressIndicatorBuilder: (context, url, progress) {
-                    return loadingWidget;
-                  },
-                ),
-              ),
-              spacing12Width,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    H6(
-                      text: suggestions[index].brand,
-                      color: BrandColor.primaryFontColor.withOpacity(0.55),
-                    ),
-                    spacing2,
-                    H5(
-                      text: suggestions[index].name,
-                      height: 1.1,
-                      maxLines: 2,
-                      textOverflow: TextOverflow.ellipsis,
-                    ),
-                    spacing4,
-                    Row(
-                      children: [
-                        H5(
-                          text:
-                              "S/ ${Calculate.getPrice(suggestions[index].price, suggestions[index].discount).toStringAsFixed(2)}",
-                          fontWeight: FontWeight.w700,
-                        ),
-                        spacing8Width,
-                        suggestions[index].discount > 0
-                            ? H6(
-                                text:
-                                    "S/ ${suggestions[index].price.toStringAsFixed(2)}",
-                                color: BrandColor.primaryFontColor
-                                    .withOpacity(0.55),
-                                textDecoration: TextDecoration.lineThrough,
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        return ItemSearchWidget(
+          model: suggestions[index],
         );
       },
     );
