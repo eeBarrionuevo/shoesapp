@@ -135,7 +135,11 @@ class ExplorePage extends StatelessWidget {
                   title: TextField(
                     onTap: () async {
                       await showSearch(
-                          context: context, delegate: SearchProduct());
+                        context: context,
+                        delegate: SearchProduct(
+                          products: products,
+                        ),
+                      );
                     },
                     cursorColor: BrandColor.secondaryFontColor,
                     style: const TextStyle(

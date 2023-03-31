@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/models/product_model.dart';
 
 class SearchProduct extends SearchDelegate {
+  List<ProductModel> products;
+  SearchProduct({required this.products});
+
   List<String> names = [
     "Elvis",
     "Daniel",
@@ -42,15 +46,15 @@ class SearchProduct extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> suggestions = names
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+    List<ProductModel> suggestions = products
+        .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          title: Text(suggestions[index]),
+          title: Text(suggestions[index].name),
         );
       },
     );
@@ -58,15 +62,15 @@ class SearchProduct extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestions = names
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+    List<ProductModel> suggestions = products
+        .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          title: Text(suggestions[index]),
+          title: Text(suggestions[index].name),
         );
       },
     );
