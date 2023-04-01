@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shoesappclient/models/brand_model.dart';
 import 'package:shoesappclient/models/product_model.dart';
 
@@ -40,5 +41,20 @@ class FirestoreService {
       brands.add(model);
     }
     return brands;
+  }
+
+  Future<List<ProductModel>> getProductsByBrand() async {
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("products");
+    QuerySnapshot collection =
+        await reference.where("brand", isEqualTo: "Oweojlds8IXiu61wnzzH").get();
+    List<QueryDocumentSnapshot> docs = collection.docs;
+    List<ProductModel> products = [];
+    for (QueryDocumentSnapshot item in docs) {
+      ProductModel product =
+          ProductModel.fromJson(item.data() as Map<String, dynamic>);
+      products.add(product);
+    }
+    return products;
   }
 }
