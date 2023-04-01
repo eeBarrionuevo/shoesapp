@@ -5,8 +5,15 @@ import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 
-class CommonInputWidget extends StatelessWidget {
-  const CommonInputWidget({super.key});
+class CommonPasswordWidget extends StatefulWidget {
+  const CommonPasswordWidget({super.key});
+
+  @override
+  State<CommonPasswordWidget> createState() => _CommonPasswordWidgetState();
+}
+
+class _CommonPasswordWidgetState extends State<CommonPasswordWidget> {
+  bool isInvisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +21,7 @@ class CommonInputWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         H5(
-          text: "  Correo electrónico:",
+          text: "  Contraseña:",
           fontWeight: FontWeight.w500,
         ),
         spacing8,
@@ -29,8 +36,9 @@ class CommonInputWidget extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            obscureText: isInvisible,
             decoration: InputDecoration(
-              hintText: "Tu correo electrónico",
+              hintText: "Tu contraseña",
               hintStyle: TextStyle(
                 fontSize: 14.0,
                 color: BrandColor.primaryFontColor.withOpacity(0.60),
@@ -42,9 +50,26 @@ class CommonInputWidget extends StatelessWidget {
                 vertical: 12,
               ),
               prefixIcon: SvgPicture.asset(
-                AssetData.iconMail,
+                AssetData.iconLock,
                 fit: BoxFit.scaleDown,
                 color: BrandColor.primaryFontColor.withOpacity(0.50),
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  isInvisible
+                      ? Icons.remove_red_eye_sharp
+                      : Icons.remove_red_eye_outlined,
+                  size: 18.0,
+                  color: BrandColor.secondaryColor,
+                ),
+                onPressed: () {
+                  isInvisible = !isInvisible;
+                  setState(() {});
+                  // Future.delayed(const Duration(seconds: 2), () {
+                  //   isInvisible = !isInvisible;
+                  //   setState(() {});
+                  // });
+                },
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30.0),

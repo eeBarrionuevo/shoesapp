@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
+import 'package:shoesappclient/ui/widgets/common_password_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
@@ -74,6 +75,8 @@ class LoginPage extends StatelessWidget {
                     ),
                     spacing20,
                     CommonInputWidget(),
+                    spacing20,
+                    CommonPasswordWidget(),
                   ],
                 ),
               ),
