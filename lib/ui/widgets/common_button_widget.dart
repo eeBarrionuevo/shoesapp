@@ -1,0 +1,45 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/widgets/common_text.dart';
+import 'package:shoesappclient/utils/asset_data.dart';
+
+class CommonButtonWidget extends StatelessWidget {
+  String text;
+  Color color;
+  String? icon;
+  CommonButtonWidget({
+    required this.text,
+    required this.color,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 48.0,
+      child: ElevatedButton.icon(
+        onPressed: () {},
+        icon: icon != null
+            ? SvgPicture.asset(
+                icon!,
+                color: Colors.white,
+              )
+            : const SizedBox(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
+        label: H5(
+          text: text,
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}

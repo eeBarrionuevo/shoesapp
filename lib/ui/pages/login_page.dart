@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_password_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
@@ -77,6 +78,23 @@ class LoginPage extends StatelessWidget {
                     CommonInputWidget(),
                     spacing20,
                     CommonPasswordWidget(),
+                    spacing40,
+                    CommonButtonWidget(
+                      color: BrandColor.secondaryColor,
+                      text: "Iniciar Sesión",
+                    ),
+                    spacing40,
+                    CommonButtonWidget(
+                      color: Color(0xffEA4335),
+                      text: "Iniciar Sesión con Google",
+                      icon: AssetData.iconGoogle,
+                    ),
+                    spacing20,
+                    CommonButtonWidget(
+                      color: Color(0xff0A82ED),
+                      text: "Iniciar Sesión con Facebook",
+                      icon: AssetData.iconFacebook,
+                    ),
                   ],
                 ),
               ),
