@@ -43,18 +43,26 @@ class FirestoreService {
     return brands;
   }
 
-  Future<List<ProductModel>> getProductsByBrand() async {
+  Future<List<ProductModel>> getProductsByBrand(String id) async {
     CollectionReference reference =
         FirebaseFirestore.instance.collection("products");
     QuerySnapshot collection =
-        await reference.where("brand", isEqualTo: "Oweojlds8IXiu61wnzzH").get();
+        await reference.where("brand", isEqualTo: id).get();
+
+    List<BrandModel> brands = await getBrands();
+
     List<QueryDocumentSnapshot> docs = collection.docs;
     List<ProductModel> products = [];
+
     for (QueryDocumentSnapshot item in docs) {
       ProductModel product =
           ProductModel.fromJson(item.data() as Map<String, dynamic>);
+      String newBrand =
+          brands.where((element) => element.id == product.brand).first.name;
+      product.brand = newBrand;
       products.add(product);
     }
+
     return products;
   }
 }

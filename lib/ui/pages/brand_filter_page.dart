@@ -15,7 +15,7 @@ class BrandFilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: firestoreService.getProducts(),
+        future: firestoreService.getProductsByBrand(model.id!),
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (snap.hasData) {
             List<ProductModel> products = snap.data;
