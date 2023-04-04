@@ -8,6 +8,7 @@ import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
+import 'package:shoesappclient/utils/types.dart';
 
 class RegisterPage extends StatelessWidget {
   TextEditingController fullNameController = TextEditingController();
@@ -48,6 +49,7 @@ class RegisterPage extends StatelessWidget {
                       hintText: "Tu nombre completo",
                       icon: AssetData.iconUser,
                       controller: fullNameController,
+                      inputType: InputTypeEnum.text,
                     ),
                     spacing20,
                     CommonInputWidget(
@@ -55,6 +57,7 @@ class RegisterPage extends StatelessWidget {
                       hintText: "Tu teléfono",
                       icon: AssetData.iconPhone,
                       controller: phoneController,
+                      inputType: InputTypeEnum.phone,
                     ),
                     spacing20,
                     CommonInputWidget(
@@ -62,6 +65,7 @@ class RegisterPage extends StatelessWidget {
                       hintText: "Tu correo electrónico",
                       icon: AssetData.iconMail,
                       controller: emailController,
+                      inputType: InputTypeEnum.email,
                     ),
                     spacing20,
                     CommonPasswordWidget(),

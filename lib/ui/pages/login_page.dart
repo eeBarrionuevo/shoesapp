@@ -11,6 +11,7 @@ import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
+import 'package:shoesappclient/utils/types.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -54,6 +55,7 @@ class LoginPage extends StatelessWidget {
                       hintText: "Tu correo electrónico",
                       icon: AssetData.iconMail,
                       controller: emailController,
+                      inputType: InputTypeEnum.email,
                     ),
                     spacing20,
                     CommonPasswordWidget(),

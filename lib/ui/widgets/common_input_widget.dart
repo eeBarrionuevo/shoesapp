@@ -4,18 +4,21 @@ import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
+import 'package:shoesappclient/utils/types.dart';
 
 class CommonInputWidget extends StatelessWidget {
   String label;
   String hintText;
   String icon;
   TextEditingController controller;
+  InputTypeEnum inputType;
 
   CommonInputWidget({
     required this.label,
     required this.hintText,
     required this.icon,
     required this.controller,
+    required this.inputType,
   });
 
   @override
