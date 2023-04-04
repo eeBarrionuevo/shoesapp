@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/pages/register_page.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_password_widget.dart';
@@ -95,10 +96,18 @@ class LoginPage extends StatelessWidget {
                           text: "Aún no tienes una cuenta?  ",
                           color: BrandColor.primaryFontColor.withOpacity(0.70),
                         ),
-                        H5(
-                          text: "Regístrate",
-                          fontWeight: FontWeight.w700,
-                          color: BrandColor.primaryColor,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPage()));
+                          },
+                          child: H5(
+                            text: "Regístrate",
+                            fontWeight: FontWeight.w700,
+                            color: BrandColor.primaryColor,
+                          ),
                         ),
                       ],
                     ),
