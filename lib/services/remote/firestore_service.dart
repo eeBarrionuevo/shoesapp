@@ -65,4 +65,19 @@ class FirestoreService {
 
     return products;
   }
+
+  Future<String> registerUser() async {
+    CollectionReference userReference =
+        FirebaseFirestore.instance.collection("users");
+
+    DocumentReference doc = await userReference.add(
+      {
+        "email": "dgonzales@gmail.com",
+        "name": "Daniel Gonzales",
+        "phone": "345222111",
+        "role": "client",
+      },
+    );
+    return doc.id;
+  }
 }

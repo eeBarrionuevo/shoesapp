@@ -9,10 +9,12 @@ class CommonButtonWidget extends StatelessWidget {
   String text;
   Color color;
   String? icon;
+  VoidCallback onPressed;
   CommonButtonWidget({
     required this.text,
     required this.color,
     this.icon,
+    required this.onPressed,
   });
 
   @override
@@ -21,7 +23,7 @@ class CommonButtonWidget extends StatelessWidget {
       width: double.infinity,
       height: 48.0,
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: onPressed,
         icon: icon != null
             ? SvgPicture.asset(
                 icon!,

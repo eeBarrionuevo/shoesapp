@@ -63,6 +63,7 @@ class LoginPage extends StatelessWidget {
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,
                       text: "Iniciar Sesión",
+                      onPressed: () {},
                     ),
                     spacing16,
                     Row(
@@ -97,12 +98,14 @@ class LoginPage extends StatelessWidget {
                       color: Color(0xff000814),
                       text: "Iniciar Sesión con Google",
                       icon: AssetData.iconGoogle,
+                      onPressed: () {},
                     ),
                     spacing20,
                     CommonButtonWidget(
                       color: Color(0xff0A82ED),
                       text: "Iniciar Sesión con Facebook",
                       icon: AssetData.iconFacebook,
+                      onPressed: () {},
                     ),
                   ],
                 ),

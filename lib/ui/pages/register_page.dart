@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/main.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
@@ -14,6 +16,22 @@ class RegisterPage extends StatelessWidget {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
+  registerUser() async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: "dgonzales@gmail.com",
+        password: "12312323",
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "weak-password") {
+        //
+      } else if (e.code == "email-already-in-use") {
+        //
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +91,9 @@ class RegisterPage extends StatelessWidget {
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,
                       text: "Regístrate",
+                      onPressed: () {
+                        registerUser();
+                      },
                     ),
                     spacing16,
                     Row(
