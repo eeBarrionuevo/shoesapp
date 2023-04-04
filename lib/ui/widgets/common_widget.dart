@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 import '../general/brand_color.dart';
@@ -64,4 +65,22 @@ Stack backgroundWidget(BuildContext context) => Stack(
           ),
         ),
       ],
+    );
+
+SnackBar snackBarError(String message) => SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      backgroundColor: const Color(0xffED3949),
+      content: Row(
+        children: [
+          Expanded(
+            child: H5(
+              text: message,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
     );
