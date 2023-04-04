@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/main.dart';
+import 'package:shoesappclient/models/user_model.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/pages/init_page.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_password_widget.dart';
@@ -12,18 +15,43 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 import 'package:shoesappclient/utils/types.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController fullNameController = TextEditingController();
+
   TextEditingController phoneController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  FirestoreService firestoreService = FirestoreService();
 
   registerUser() async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "dgonzales@gmail.com",
-        password: "12312323",
+        email: emailController.text,
+        password: passwordController.text,
       );
+
+      if (userCredential.user != null) {
+        UserModel model = UserModel(
+          email: emailController.text,
+          name: fullNameController.text,
+          phone: phoneController.text,
+          role: "client",
+        );
+        String value = await firestoreService.registerUser(model);
+        if (value.isNotEmpty) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => InitPage()));
+        }
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
         //

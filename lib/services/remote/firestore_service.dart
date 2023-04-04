@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shoesappclient/models/brand_model.dart';
 import 'package:shoesappclient/models/product_model.dart';
+import 'package:shoesappclient/models/user_model.dart';
 
 class FirestoreService {
   Future<List<ProductModel>> getProducts() async {
@@ -66,18 +67,10 @@ class FirestoreService {
     return products;
   }
 
-  Future<String> registerUser() async {
+  Future<String> registerUser(UserModel model) async {
     CollectionReference userReference =
         FirebaseFirestore.instance.collection("users");
-
-    DocumentReference doc = await userReference.add(
-      {
-        "email": "dgonzales@gmail.com",
-        "name": "Daniel Gonzales",
-        "phone": "345222111",
-        "role": "client",
-      },
-    );
+    DocumentReference doc = await userReference.add(model.toJson());
     return doc.id;
   }
 }
