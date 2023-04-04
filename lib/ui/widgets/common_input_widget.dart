@@ -43,7 +43,14 @@ class CommonInputWidget extends StatelessWidget {
           ),
           child: TextFormField(
             controller: controller,
+            keyboardType: inputType == InputTypeEnum.phone
+                ? TextInputType.phone
+                : inputType == InputTypeEnum.email
+                    ? TextInputType.emailAddress
+                    : TextInputType.text,
+            maxLength: inputType == InputTypeEnum.phone ? 9 : null,
             decoration: InputDecoration(
+              counterText: "",
               hintText: hintText,
               hintStyle: TextStyle(
                 fontSize: 14.0,
