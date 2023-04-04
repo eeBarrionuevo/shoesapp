@@ -6,7 +6,17 @@ import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 
 class CommonInputWidget extends StatelessWidget {
-  const CommonInputWidget({super.key});
+  String label;
+  String hintText;
+  String icon;
+  TextEditingController controller;
+
+  CommonInputWidget({
+    required this.label,
+    required this.hintText,
+    required this.icon,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +24,7 @@ class CommonInputWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         H5(
-          text: "  Correo electrónico:",
+          text: "  $label:",
           fontWeight: FontWeight.w500,
         ),
         spacing8,
@@ -29,8 +39,9 @@ class CommonInputWidget extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
-              hintText: "Tu correo electrónico",
+              hintText: hintText,
               hintStyle: TextStyle(
                 fontSize: 14.0,
                 color: BrandColor.primaryFontColor.withOpacity(0.60),
@@ -42,7 +53,7 @@ class CommonInputWidget extends StatelessWidget {
                 vertical: 12,
               ),
               prefixIcon: SvgPicture.asset(
-                AssetData.iconMail,
+                icon,
                 fit: BoxFit.scaleDown,
                 color: BrandColor.primaryFontColor.withOpacity(0.50),
               ),

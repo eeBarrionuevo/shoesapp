@@ -13,7 +13,7 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,12 @@ class LoginPage extends StatelessWidget {
                     //   color: BrandColor.primaryFontColor.withOpacity(0.80),
                     // ),
                     spacing20,
-                    CommonInputWidget(),
+                    CommonInputWidget(
+                      label: "Correo electrónico",
+                      hintText: "Tu correo electrónico",
+                      icon: AssetData.iconMail,
+                      controller: emailController,
+                    ),
                     spacing20,
                     CommonPasswordWidget(),
                     spacing30,
