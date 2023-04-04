@@ -6,7 +6,8 @@ import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 
 class CommonPasswordWidget extends StatefulWidget {
-  const CommonPasswordWidget({super.key});
+  TextEditingController controller;
+  CommonPasswordWidget({required this.controller});
 
   @override
   State<CommonPasswordWidget> createState() => _CommonPasswordWidgetState();
@@ -36,6 +37,7 @@ class _CommonPasswordWidgetState extends State<CommonPasswordWidget> {
             ],
           ),
           child: TextFormField(
+            controller: widget.controller,
             obscureText: isInvisible,
             decoration: InputDecoration(
               hintText: "Tu contraseña",

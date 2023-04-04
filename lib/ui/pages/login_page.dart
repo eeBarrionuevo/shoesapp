@@ -15,6 +15,7 @@ import 'package:shoesappclient/utils/types.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,9 @@ class LoginPage extends StatelessWidget {
                       inputType: InputTypeEnum.email,
                     ),
                     spacing20,
-                    CommonPasswordWidget(),
+                    CommonPasswordWidget(
+                      controller: passwordController,
+                    ),
                     spacing30,
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,

@@ -48,13 +48,33 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         String value = await firestoreService.registerUser(model);
         if (value.isNotEmpty) {
+          // ignore: use_build_context_synchronously
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => InitPage()));
         }
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
-        //
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            backgroundColor: const Color(0xffED3949),
+            content: Row(
+              children: [
+                Expanded(
+                  child: H5(
+                    text:
+                        "La contraseña es muy débil, debe de tener como mínimo 6 caracteres",
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
       } else if (e.code == "email-already-in-use") {
         //
       }
@@ -114,7 +134,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       inputType: InputTypeEnum.email,
                     ),
                     spacing20,
-                    CommonPasswordWidget(),
+                    CommonPasswordWidget(
+                      controller: passwordController,
+                    ),
                     spacing30,
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,
