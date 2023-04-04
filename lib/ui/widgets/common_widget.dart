@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/utils/responsive.dart';
 
 import '../general/brand_color.dart';
 
@@ -29,3 +32,36 @@ Center loadingWidget = const Center(
     ),
   ),
 );
+
+Stack backgroundWidget(BuildContext context) => Stack(
+      children: [
+        Positioned(
+          top: -ResponsiveUI.pDiagonal(context, 0.2),
+          left: -ResponsiveUI.pDiagonal(context, 0.05),
+          child: Transform.rotate(
+            angle: pi / 3.5,
+            child: Container(
+              height: ResponsiveUI.pDiagonal(context, 0.48),
+              width: ResponsiveUI.pDiagonal(context, 0.48),
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.circular(90.0),
+                gradient: const LinearGradient(
+                  colors: [
+                    BrandColor.secondaryColor,
+                    BrandColor.primaryColor,
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: BrandColor.primaryColor.withOpacity(0.6),
+                    blurRadius: 12.0,
+                    offset: const Offset(6, 6),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
