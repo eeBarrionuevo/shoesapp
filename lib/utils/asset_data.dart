@@ -12,7 +12,7 @@ class AssetData {
   static const iconGoogle = "assets/icons/google.svg";
   static const iconFacebook = "assets/icons/facebook.svg";
 
-  static const imageLogo = "...";
+  static const imageLogo = "assets/images/logo.png";
   static const imageLogoLarge = "...";
   static const imagePlaceholder = "assets/images/placeholder.png";
 }

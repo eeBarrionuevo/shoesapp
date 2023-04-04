@@ -60,32 +60,56 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: ResponsiveUI.pDiagonal(context, 0.1),
+                      height: ResponsiveUI.pDiagonal(context, 0.07),
+                    ),
+                    Image.asset(
+                      AssetData.imageLogo,
+                      height: 52,
                     ),
                     H1(
                       text: "ShoesApp",
                     ),
-                    spacing4,
+                    spacing8,
                     H4(
                       text: "Iniciar Sesión",
                     ),
-                    spacing4,
-                    H5(
-                      text: "Por favor ingresa tus credenciales",
-                      color: BrandColor.primaryFontColor.withOpacity(0.80),
-                    ),
+                    // spacing4,
+                    // H5(
+                    //   text: "Por favor ingresa tus credenciales",
+                    //   color: BrandColor.primaryFontColor.withOpacity(0.80),
+                    // ),
                     spacing20,
                     CommonInputWidget(),
                     spacing20,
                     CommonPasswordWidget(),
-                    spacing40,
+                    spacing30,
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,
                       text: "Iniciar Sesión",
                     ),
+                    spacing16,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        H5(
+                          text: "Aún no tienes una cuenta?  ",
+                          color: BrandColor.primaryFontColor.withOpacity(0.70),
+                        ),
+                        H5(
+                          text: "Regístrate",
+                          fontWeight: FontWeight.w700,
+                          color: BrandColor.primaryColor,
+                        ),
+                      ],
+                    ),
                     spacing40,
+                    H5(
+                      text: "También puedes",
+                      color: BrandColor.primaryFontColor.withOpacity(0.80),
+                    ),
+                    spacing20,
                     CommonButtonWidget(
-                      color: Color(0xffEA4335),
+                      color: Color(0xff000814),
                       text: "Iniciar Sesión con Google",
                       icon: AssetData.iconGoogle,
                     ),
