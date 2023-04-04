@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/main.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
@@ -9,6 +10,10 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 
 class RegisterPage extends StatelessWidget {
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +43,26 @@ class RegisterPage extends StatelessWidget {
                       text: "Regístrate",
                     ),
                     spacing20,
-                    CommonInputWidget(),
+                    CommonInputWidget(
+                      label: "Nombre completo",
+                      hintText: "Tu nombre completo",
+                      icon: AssetData.iconUser,
+                      controller: fullNameController,
+                    ),
                     spacing20,
-                    CommonInputWidget(),
+                    CommonInputWidget(
+                      label: "Teléfono",
+                      hintText: "Tu teléfono",
+                      icon: AssetData.iconPhone,
+                      controller: phoneController,
+                    ),
                     spacing20,
-                    CommonInputWidget(),
+                    CommonInputWidget(
+                      label: "Correo electrónico",
+                      hintText: "Tu correo electrónico",
+                      icon: AssetData.iconMail,
+                      controller: emailController,
+                    ),
                     spacing20,
                     CommonPasswordWidget(),
                     spacing30,
