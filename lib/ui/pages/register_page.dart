@@ -31,8 +31,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
   FirestoreService firestoreService = FirestoreService();
 
+  bool isLoading = false;
+
   registerUser() async {
     try {
+      isLoading = true;
+      setState(() {});
+
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
@@ -48,12 +53,16 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         String value = await firestoreService.registerUser(model);
         if (value.isNotEmpty) {
+          isLoading = false;
+          setState(() {});
           // ignore: use_build_context_synchronously
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => InitPage()));
         }
       }
     } on FirebaseAuthException catch (e) {
+      isLoading = false;
+      setState(() {});
       if (e.code == "weak-password") {
         ScaffoldMessenger.of(context).showSnackBar(
           snackBarError(
@@ -159,6 +168,13 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ),
+
+          isLoading
+              ? Container(
+                  color: Colors.white70,
+                  child: loadingWidget,
+                )
+              : const SizedBox(),
         ],
       ),
     );
