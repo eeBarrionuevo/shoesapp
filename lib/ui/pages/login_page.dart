@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesappclient/models/user_model.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/pages/register_page.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
@@ -17,15 +19,18 @@ import 'package:shoesappclient/utils/types.dart';
 class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirestoreService firestoreService = FirestoreService();
 
   login() async {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: "mandarina@gmail.com",
-      password: "3volution",
+      password: "3volution222",
     );
     if (userCredential.user != null) {
-      //
+      UserModel? userModel =
+          await firestoreService.getUser("mandarina@gmail.com");
+      print(userModel!.toJson());
     }
   }
 
