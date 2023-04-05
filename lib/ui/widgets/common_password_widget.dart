@@ -90,6 +90,12 @@ class _CommonPasswordWidgetState extends State<CommonPasswordWidget> {
                 borderSide: BorderSide.none,
               ),
             ),
+            validator: (String? value) {
+              if (value != null && value.isEmpty) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
           ),
         ),
       ],

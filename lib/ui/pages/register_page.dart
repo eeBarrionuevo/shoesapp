@@ -34,33 +34,37 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool isLoading = false;
 
+  final formKeyRegister = GlobalKey<FormState>();
+
   registerUser() async {
     try {
-      isLoading = true;
-      setState(() {});
+      if (formKeyRegister.currentState!.validate()) {
+        isLoading = true;
+        setState(() {});
 
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-
-      if (userCredential.user != null) {
-        UserModel model = UserModel(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
-          name: fullNameController.text,
-          phone: phoneController.text,
-          role: "client",
+          password: passwordController.text,
         );
-        String value = await firestoreService.registerUser(model);
-        if (value.isNotEmpty) {
-          SPGlobal().fullName = fullNameController.text;
-          SPGlobal().isLogin = true;
-          isLoading = false;
-          setState(() {});
-          // ignore: use_build_context_synchronously
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => InitPage()));
+
+        if (userCredential.user != null) {
+          UserModel model = UserModel(
+            email: emailController.text,
+            name: fullNameController.text,
+            phone: phoneController.text,
+            role: "client",
+          );
+          String value = await firestoreService.registerUser(model);
+          if (value.isNotEmpty) {
+            SPGlobal().fullName = fullNameController.text;
+            SPGlobal().isLogin = true;
+            isLoading = false;
+            setState(() {});
+            // ignore: use_build_context_synchronously
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => InitPage()));
+          }
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -94,79 +98,83 @@ class _RegisterPageState extends State<RegisterPage> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: ResponsiveUI.pDiagonal(context, 0.07),
-                    ),
-                    Image.asset(
-                      AssetData.imageLogo,
-                      height: 52,
-                    ),
-                    H1(
-                      text: "ShoesApp",
-                    ),
-                    spacing8,
-                    H4(
-                      text: "Regístrate",
-                    ),
-                    spacing20,
-                    CommonInputWidget(
-                      label: "Nombre completo",
-                      hintText: "Tu nombre completo",
-                      icon: AssetData.iconUser,
-                      controller: fullNameController,
-                      inputType: InputTypeEnum.text,
-                    ),
-                    spacing20,
-                    CommonInputWidget(
-                      label: "Teléfono",
-                      hintText: "Tu teléfono",
-                      icon: AssetData.iconPhone,
-                      controller: phoneController,
-                      inputType: InputTypeEnum.phone,
-                    ),
-                    spacing20,
-                    CommonInputWidget(
-                      label: "Correo electrónico",
-                      hintText: "Tu correo electrónico",
-                      icon: AssetData.iconMail,
-                      controller: emailController,
-                      inputType: InputTypeEnum.email,
-                    ),
-                    spacing20,
-                    CommonPasswordWidget(
-                      controller: passwordController,
-                    ),
-                    spacing30,
-                    CommonButtonWidget(
-                      color: BrandColor.secondaryColor,
-                      text: "Regístrate",
-                      onPressed: () {
-                        registerUser();
-                      },
-                    ),
-                    spacing16,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        H5(
-                          text: "Ya tienes una cuenta?  ",
-                          color: BrandColor.primaryFontColor.withOpacity(0.70),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: H5(
-                            text: "Inicia Sesión",
-                            fontWeight: FontWeight.w700,
-                            color: BrandColor.primaryColor,
+                child: Form(
+                  key: formKeyRegister,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: ResponsiveUI.pDiagonal(context, 0.07),
+                      ),
+                      Image.asset(
+                        AssetData.imageLogo,
+                        height: 52,
+                      ),
+                      H1(
+                        text: "ShoesApp",
+                      ),
+                      spacing8,
+                      H4(
+                        text: "Regístrate",
+                      ),
+                      spacing20,
+                      CommonInputWidget(
+                        label: "Nombre completo",
+                        hintText: "Tu nombre completo",
+                        icon: AssetData.iconUser,
+                        controller: fullNameController,
+                        inputType: InputTypeEnum.text,
+                      ),
+                      spacing20,
+                      CommonInputWidget(
+                        label: "Teléfono",
+                        hintText: "Tu teléfono",
+                        icon: AssetData.iconPhone,
+                        controller: phoneController,
+                        inputType: InputTypeEnum.phone,
+                      ),
+                      spacing20,
+                      CommonInputWidget(
+                        label: "Correo electrónico",
+                        hintText: "Tu correo electrónico",
+                        icon: AssetData.iconMail,
+                        controller: emailController,
+                        inputType: InputTypeEnum.email,
+                      ),
+                      spacing20,
+                      CommonPasswordWidget(
+                        controller: passwordController,
+                      ),
+                      spacing30,
+                      CommonButtonWidget(
+                        color: BrandColor.secondaryColor,
+                        text: "Regístrate",
+                        onPressed: () {
+                          registerUser();
+                        },
+                      ),
+                      spacing16,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          H5(
+                            text: "Ya tienes una cuenta?  ",
+                            color:
+                                BrandColor.primaryFontColor.withOpacity(0.70),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: H5(
+                              text: "Inicia Sesión",
+                              fontWeight: FontWeight.w700,
+                              color: BrandColor.primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
