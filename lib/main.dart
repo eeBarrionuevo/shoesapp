@@ -7,9 +7,9 @@ import 'package:shoesappclient/ui/pages/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SPGlobal prefs = SPGlobal();
+  await prefs.initSharedPreferences();
   await Firebase.initializeApp();
-  SPGlobal spGlobal = SPGlobal();
-  spGlobal.initSharedPreferences;
   runApp(MyApp());
 }
 
