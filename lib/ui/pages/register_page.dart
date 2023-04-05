@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/main.dart';
 import 'package:shoesappclient/models/user_model.dart';
+import 'package:shoesappclient/services/local/sp_global.dart';
 import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/pages/init_page.dart';
@@ -53,6 +54,8 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         String value = await firestoreService.registerUser(model);
         if (value.isNotEmpty) {
+          SPGlobal().fullName = fullNameController.text;
+          SPGlobal().isLogin = true;
           isLoading = false;
           setState(() {});
           // ignore: use_build_context_synchronously
