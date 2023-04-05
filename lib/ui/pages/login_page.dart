@@ -98,7 +98,22 @@ class _LoginPageState extends State<LoginPage> {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    print(userCredential);
+    if (userCredential.user != null) {
+      UserModel? userModel =
+          await firestoreService.getUser(userCredential.user!.email!);
+      if (userModel == null) {
+        UserModel model = UserModel(
+          email: userCredential.user!.email!,
+          name: userCredential.user!.displayName!,
+          phone: "",
+          role: "client",
+        );
+        firestoreService.registerUser(model);
+      } else {
+        //SharedPreferences
+
+      }
+    }
   }
 
   @override
