@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shoesappclient/models/user_model.dart';
 import 'package:shoesappclient/services/local/sp_global.dart';
 import 'package:shoesappclient/services/remote/firestore_service.dart';
@@ -33,6 +34,8 @@ class _LoginPageState extends State<LoginPage> {
   final formKeyLogin = GlobalKey<FormState>();
 
   bool isLoading = false;
+
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: ["email"]);
 
   login() async {
     if (formKeyLogin.currentState!.validate()) {
@@ -75,6 +78,27 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     }
+  }
+
+  loginWithGoogle() async {
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount == null) {
+      return;
+    }
+
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    print(userCredential);
   }
 
   @override
@@ -166,14 +190,18 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color(0xff000814),
                         text: "Iniciar Sesión con Google",
                         icon: AssetData.iconGoogle,
-                        onPressed: () {},
+                        onPressed: () {
+                          loginWithGoogle();
+                        },
                       ),
                       spacing20,
                       CommonButtonWidget(
                         color: Color(0xff0A82ED),
                         text: "Iniciar Sesión con Facebook",
                         icon: AssetData.iconFacebook,
-                        onPressed: () {},
+                        onPressed: () {
+                          googleSignIn.signOut();
+                        },
                       ),
                     ],
                   ),
