@@ -34,12 +34,12 @@ class _LoginPageState extends State<LoginPage> {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: "mandarina@gmail.com",
-        password: "3volution",
+        email: emailController.text,
+        password: passwordController.text,
       );
       if (userCredential.user != null) {
         UserModel? userModel =
-            await firestoreService.getUser("mandarina@gmail.com");
+            await firestoreService.getUser(emailController.text);
         if (userModel != null) {
           SPGlobal().fullName = userModel.name;
           SPGlobal().isLogin = true;
