@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shoesappclient/models/brand_model.dart';
 import 'package:shoesappclient/models/product_model.dart';
@@ -72,5 +73,18 @@ class FirestoreService {
         FirebaseFirestore.instance.collection("users");
     DocumentReference doc = await userReference.add(model.toJson());
     return doc.id;
+  }
+
+  Future<UserModel?> getUser(String email) async {
+    CollectionReference userReference =
+        FirebaseFirestore.instance.collection("users");
+    QuerySnapshot collection =
+        await userReference.where("email", isEqualTo: email).get();
+    if (collection.size > 0) {
+      QueryDocumentSnapshot doc = collection.docs.first;
+      UserModel model = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      return model;
+    }
+    return null;
   }
 }

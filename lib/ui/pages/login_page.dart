@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
@@ -17,7 +18,16 @@ class LoginPage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  login() {}
+  login() async {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: "mandarina@gmail.com",
+      password: "3volution",
+    );
+    if (userCredential.user != null) {
+      //
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +78,9 @@ class LoginPage extends StatelessWidget {
                     CommonButtonWidget(
                       color: BrandColor.secondaryColor,
                       text: "Iniciar Sesión",
-                      onPressed: () {},
+                      onPressed: () {
+                        login();
+                      },
                     ),
                     spacing16,
                     Row(
