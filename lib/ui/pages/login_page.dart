@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shoesappclient/models/user_model.dart';
@@ -127,6 +128,20 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  loginWithFacebook() async {
+    LoginResult loginResult = await FacebookAuth.instance.login();
+    if (loginResult.status == LoginStatus.success) {
+      Map<String, dynamic> userData = await FacebookAuth.instance.getUserData();
+
+      AccessToken? accessToken = loginResult.accessToken;
+
+      OAuthCredential credential =
+          FacebookAuthProvider.credential(accessToken!.token);
+
+      FirebaseAuth.instance.signInWithCredential(credential);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                         text: "Iniciar Sesión con Facebook",
                         icon: AssetData.iconFacebook,
                         onPressed: () {
-                          googleSignIn.signOut();
+                          loginWithFacebook();
                         },
                       ),
                     ],
