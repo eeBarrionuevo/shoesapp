@@ -62,24 +62,19 @@ class ItemOfferWidget extends StatelessWidget {
                         textOverflow: TextOverflow.ellipsis,
                       ),
                       spacing4,
-                      Row(
-                        children: [
-                          H5(
-                            text:
-                                "S/ ${Calculate.getPrice(model.price, model.discount).toStringAsFixed(2)}",
-                            fontWeight: FontWeight.w700,
-                          ),
-                          spacing8Width,
-                          model.discount > 0
-                              ? H6(
-                                  text: "S/ ${model.price.toStringAsFixed(2)}",
-                                  color: BrandColor.primaryFontColor
-                                      .withOpacity(0.55),
-                                  textDecoration: TextDecoration.lineThrough,
-                                )
-                              : const SizedBox(),
-                        ],
+                      H5(
+                        text:
+                            "S/ ${Calculate.getPrice(model.price, model.discount).toStringAsFixed(2)}",
+                        fontWeight: FontWeight.w700,
                       ),
+                      model.discount > 0
+                          ? H6(
+                              text: "S/ ${model.price.toStringAsFixed(2)}",
+                              color:
+                                  BrandColor.primaryFontColor.withOpacity(0.55),
+                              textDecoration: TextDecoration.lineThrough,
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

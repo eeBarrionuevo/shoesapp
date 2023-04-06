@@ -144,6 +144,28 @@ class _LoginPageState extends State<LoginPage> {
       if (userCredential.user != null) {
         UserModel? userModel =
             await firestoreService.getUser(userCredential.user!.email!);
+        if (userModel == null) {
+          UserModel model = UserModel(
+            email: userCredential.user!.email!,
+            name: userCredential.user!.displayName!,
+            phone: "",
+            role: "client",
+          );
+          String value = await firestoreService.registerUser(model);
+          if (value.isNotEmpty) {
+            SPGlobal().fullName = userCredential.user!.displayName!;
+            SPGlobal().isLogin = true;
+            // ignore: use_build_context_synchronously
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => InitPage()));
+          }
+        } else {
+          SPGlobal().fullName = userCredential.user!.displayName!;
+          SPGlobal().isLogin = true;
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => InitPage()));
+        }
       }
     }
   }
