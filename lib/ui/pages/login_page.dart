@@ -130,6 +130,10 @@ class _LoginPageState extends State<LoginPage> {
 
   loginWithFacebook() async {
     LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // FacebookAuth.instance.logOut();
+    // googleSignIn.signOut();
+
     if (loginResult.status == LoginStatus.success) {
       Map<String, dynamic> userData = await FacebookAuth.instance.getUserData();
 
