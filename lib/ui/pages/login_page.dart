@@ -108,10 +108,21 @@ class _LoginPageState extends State<LoginPage> {
           phone: "",
           role: "client",
         );
-        firestoreService.registerUser(model);
+        String value = await firestoreService.registerUser(model);
+        if (value.isNotEmpty) {
+          SPGlobal().fullName = userCredential.user!.displayName!;
+          SPGlobal().isLogin = true;
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => InitPage()));
+        }
       } else {
         //SharedPreferences
-
+        SPGlobal().fullName = userModel.name;
+        SPGlobal().isLogin = true;
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => InitPage()));
       }
     }
   }
