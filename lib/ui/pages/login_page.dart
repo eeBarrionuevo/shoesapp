@@ -138,7 +138,13 @@ class _LoginPageState extends State<LoginPage> {
       OAuthCredential credential =
           FacebookAuthProvider.credential(accessToken!.token);
 
-      FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        UserModel? userModel =
+            await firestoreService.getUser(userCredential.user!.email!);
+      }
     }
   }
 
