@@ -18,4 +18,7 @@ class AssetData {
   static const imageLogo = "assets/images/logo.png";
   static const imageLogoLarge = "...";
   static const imagePlaceholder = "assets/images/placeholder.png";
+
+  static const imageShoes = "assets/images/shoes.png";
+  static const imageTag = "assets/images/tag.png";
 }
