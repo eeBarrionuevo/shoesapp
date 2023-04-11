@@ -22,6 +22,11 @@ class ProductAdminPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+        backgroundColor: BrandColor.secondaryColor,
+      ),
       body: StreamBuilder(
         stream: productReference.snapshots(),
         builder: (BuildContext context, AsyncSnapshot snap) {
