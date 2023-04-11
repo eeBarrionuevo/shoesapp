@@ -4,6 +4,7 @@ import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
+import 'package:shoesappclient/utils/responsive.dart';
 import 'package:shoesappclient/utils/types.dart';
 
 class ProductFormAdminPage extends StatelessWidget {
@@ -147,6 +148,40 @@ class ProductFormAdminPage extends StatelessWidget {
                   ),
                 ],
               ),
+              spacing16,
+              Container(
+                height: ResponsiveUI.pDiagonal(context, 0.25),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 12,
+                      offset: const Offset(4, 4),
+                    ),
+                  ],
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: H5(text: "Talla: 7"),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete_rounded,
+                          size: 20.0,
+                          color: Colors.redAccent,
+                        ),
+                        onPressed: () {},
+                      ),
+                    );
+                  },
+                ),
+              ),
+              spacing40,
             ],
           ),
         ),
