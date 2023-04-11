@@ -21,4 +21,7 @@ class AssetData {
 
   static const imageShoes = "assets/images/shoes.png";
   static const imageTag = "assets/images/tag.png";
+  static const imageClient = "assets/images/client.png";
+  static const imageReport = "assets/images/report.png";
+  static const imageChart = "assets/images/chart.png";
 }

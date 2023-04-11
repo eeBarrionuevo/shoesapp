@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/ui/pages/admin/product_admin_page.dart';
 import 'package:shoesappclient/ui/widgets/admin/item_menu_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
@@ -29,17 +30,24 @@ class HomeAdminPage extends StatelessWidget {
                     H5(
                       text: "Puedes gestionar todo desde aquí",
                     ),
+                    spacing12,
                     GridView(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                       ),
                       children: [
                         ItemMenuWidget(
                           text: "Productos",
                           icon: AssetData.imageShoes,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductAdminPage()));
+                          },
                         ),
                         ItemMenuWidget(
                           text: "Categorías",
@@ -48,7 +56,17 @@ class HomeAdminPage extends StatelessWidget {
                         ),
                         ItemMenuWidget(
                           text: "Clientes",
-                          icon: AssetData.imageShoes,
+                          icon: AssetData.imageClient,
+                          onTap: () {},
+                        ),
+                        ItemMenuWidget(
+                          text: "Reportes",
+                          icon: AssetData.imageReport,
+                          onTap: () {},
+                        ),
+                        ItemMenuWidget(
+                          text: "Dashboard",
+                          icon: AssetData.imageChart,
                           onTap: () {},
                         ),
                       ],

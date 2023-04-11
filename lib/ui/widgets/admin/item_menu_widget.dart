@@ -16,45 +16,49 @@ class ItemMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14.0),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 12.0,
-            color: Colors.black.withOpacity(0.10),
-            offset: const Offset(4, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
-                  blurRadius: 12,
-                  offset: const Offset(4, 4),
-                ),
-              ],
+    return InkWell(
+      borderRadius: BorderRadius.circular(14.0),
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14.0),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 12.0,
+              color: Colors.black.withOpacity(0.10),
+              offset: const Offset(4, 4),
             ),
-            child: Image.asset(
-              icon,
-              height: 36.0,
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.12),
+                    blurRadius: 12,
+                    offset: const Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: Image.asset(
+                icon,
+                height: 36.0,
+              ),
             ),
-          ),
-          spacing4,
-          H5(
-            text: text,
-          ),
-        ],
+            spacing4,
+            H5(
+              text: text,
+            ),
+          ],
+        ),
       ),
     );
   }
