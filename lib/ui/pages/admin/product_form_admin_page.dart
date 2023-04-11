@@ -99,6 +99,54 @@ class ProductFormAdminPage extends StatelessWidget {
                   ),
                 ],
               ),
+              spacing20,
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonInputWidget(
+                      label: "Stock",
+                      hintText: "Stock",
+                      icon: AssetData.iconRocket,
+                      controller: nameController,
+                      inputType: InputTypeEnum.text,
+                    ),
+                  ),
+                  spacing16Width,
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+              spacing20,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: CommonInputWidget(
+                      label: "Tallas",
+                      hintText: "Talla",
+                      icon: AssetData.iconRocket,
+                      controller: nameController,
+                      inputType: InputTypeEnum.text,
+                    ),
+                  ),
+                  spacing16Width,
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: BrandColor.primaryFontColor,
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
