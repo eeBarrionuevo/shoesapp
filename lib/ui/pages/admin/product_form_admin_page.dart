@@ -7,8 +7,17 @@ import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 import 'package:shoesappclient/utils/types.dart';
 
-class ProductFormAdminPage extends StatelessWidget {
+class ProductFormAdminPage extends StatefulWidget {
+  @override
+  State<ProductFormAdminPage> createState() => _ProductFormAdminPageState();
+}
+
+class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   final TextEditingController nameController = TextEditingController();
+
+  final TextEditingController sizeController = TextEditingController();
+
+  List<double> sizes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -127,13 +136,17 @@ class ProductFormAdminPage extends StatelessWidget {
                       label: "Tallas",
                       hintText: "Talla",
                       icon: AssetData.iconRocket,
-                      controller: nameController,
+                      controller: sizeController,
                       inputType: InputTypeEnum.text,
                     ),
                   ),
                   spacing16Width,
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      double size = double.parse(sizeController.text);
+                      sizes.add(size);
+                      setState(() {});
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
                       decoration: BoxDecoration(
@@ -165,10 +178,10 @@ class ProductFormAdminPage extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
+                  itemCount: sizes.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: H5(text: "Talla: 7"),
+                      title: H5(text: "Talla: ${sizes[index]}"),
                       trailing: IconButton(
                         icon: Icon(
                           Icons.delete_rounded,
