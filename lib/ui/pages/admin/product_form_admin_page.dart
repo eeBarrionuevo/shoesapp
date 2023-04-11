@@ -24,6 +24,7 @@ class ProductFormAdminPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonInputWidget(
                 label: "Nombre del producto",
@@ -33,6 +34,11 @@ class ProductFormAdminPage extends StatelessWidget {
                 inputType: InputTypeEnum.text,
               ),
               spacing20,
+              H5(
+                text: "  Marca:",
+                fontWeight: FontWeight.w500,
+              ),
+              spacing8,
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
@@ -49,6 +55,8 @@ class ProductFormAdminPage extends StatelessWidget {
                 child: DropdownButton(
                   value: "Adidas",
                   isExpanded: true,
+                  borderRadius: BorderRadius.circular(20.0),
+                  elevation: 6,
                   underline: const SizedBox(),
                   items: [
                     DropdownMenuItem(
