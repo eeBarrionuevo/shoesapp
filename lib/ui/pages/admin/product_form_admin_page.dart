@@ -33,6 +33,41 @@ class ProductFormAdminPage extends StatelessWidget {
                 inputType: InputTypeEnum.text,
               ),
               spacing20,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 12,
+                      offset: const Offset(4, 4),
+                    ),
+                  ],
+                ),
+                child: DropdownButton(
+                  value: "Adidas",
+                  isExpanded: true,
+                  underline: const SizedBox(),
+                  items: [
+                    DropdownMenuItem(
+                      child: H5(text: "Adidas"),
+                      value: "Adidas",
+                    ),
+                    DropdownMenuItem(
+                      child: H5(text: "Nike"),
+                      value: "Nike",
+                    ),
+                    DropdownMenuItem(
+                      child: H5(text: "New Balance"),
+                      value: "New Balance",
+                    ),
+                  ],
+                  onChanged: (value) {},
+                ),
+              ),
+              spacing20,
               Row(
                 children: [
                   Expanded(
