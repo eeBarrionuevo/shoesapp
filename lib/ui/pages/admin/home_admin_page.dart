@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesappclient/ui/widgets/admin/item_menu_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
@@ -35,58 +36,20 @@ class HomeAdminPage extends StatelessWidget {
                         crossAxisCount: 2,
                       ),
                       children: [
-                        Container(
-                          margin: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(14.0),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 12.0,
-                                color: Colors.black.withOpacity(0.10),
-                                offset: const Offset(4, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.12),
-                                      blurRadius: 12,
-                                      offset: const Offset(4, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: Image.asset(
-                                  AssetData.imageShoes,
-                                  height: 36.0,
-                                ),
-                              ),
-                              spacing4,
-                              H5(
-                                text: "Productos",
-                              ),
-                            ],
-                          ),
+                        ItemMenuWidget(
+                          text: "Productos",
+                          icon: AssetData.imageShoes,
+                          onTap: () {},
                         ),
-                        Container(
-                          color: Colors.blue,
+                        ItemMenuWidget(
+                          text: "Categorías",
+                          icon: AssetData.imageTag,
+                          onTap: () {},
                         ),
-                        Container(
-                          color: Colors.green,
-                        ),
-                        Container(
-                          color: Colors.amber,
-                        ),
-                        Container(
-                          color: Colors.red,
+                        ItemMenuWidget(
+                          text: "Clientes",
+                          icon: AssetData.imageShoes,
+                          onTap: () {},
                         ),
                       ],
                     ),
