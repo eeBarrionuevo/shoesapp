@@ -39,7 +39,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
               CommonInputWidget(
                 label: "Nombre del producto",
                 hintText: "Nombre del producto",
-                icon: AssetData.iconRocket,
+                icon: AssetData.iconNotepad,
                 controller: nameController,
                 inputType: InputTypeEnum.text,
               ),
@@ -92,7 +92,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     child: CommonInputWidget(
                       label: "Precio (S/.)",
                       hintText: "Precio",
-                      icon: AssetData.iconRocket,
+                      icon: AssetData.iconDollar,
                       controller: nameController,
                       inputType: InputTypeEnum.text,
                     ),
@@ -101,8 +101,8 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                   Expanded(
                     child: CommonInputWidget(
                       label: "Descuento (%)",
-                      hintText: "Descuent",
-                      icon: AssetData.iconRocket,
+                      hintText: "Descuento",
+                      icon: AssetData.iconOffer,
                       controller: nameController,
                       inputType: InputTypeEnum.text,
                     ),
@@ -116,7 +116,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     child: CommonInputWidget(
                       label: "Stock",
                       hintText: "Stock",
-                      icon: AssetData.iconRocket,
+                      icon: AssetData.iconShape,
                       controller: nameController,
                       inputType: InputTypeEnum.text,
                     ),
@@ -135,7 +135,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     child: CommonInputWidget(
                       label: "Tallas",
                       hintText: "Talla",
-                      icon: AssetData.iconRocket,
+                      icon: AssetData.iconSize,
                       controller: sizeController,
                       inputType: InputTypeEnum.text,
                     ),
