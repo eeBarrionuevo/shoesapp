@@ -21,6 +21,8 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
 
   @override
   Widget build(BuildContext context) {
+    // sizes = sizes.reversed.toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: BrandColor.secondaryColor,
@@ -175,24 +177,28 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     ),
                   ],
                 ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: sizes.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: H5(text: "Talla: ${sizes[index]}"),
-                      trailing: IconButton(
-                        icon: Icon(
-                          Icons.delete_rounded,
-                          size: 20.0,
-                          color: Colors.redAccent,
-                        ),
-                        onPressed: () {},
-                      ),
-                    );
-                  },
-                ),
+                child: sizes.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: sizes.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: H5(
+                                text:
+                                    "Talla: ${sizes[sizes.length - index - 1]}"),
+                            trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_rounded,
+                                size: 20.0,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {},
+                            ),
+                          );
+                        },
+                      )
+                    : Center(child: H5(text: "Aún no hay tallas agregadas.")),
               ),
               spacing40,
             ],
