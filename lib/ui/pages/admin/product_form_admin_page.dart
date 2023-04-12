@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
@@ -35,14 +36,24 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
     }
   }
 
-  uploadImageStorage() {
+  Future<String> uploadImageStorage() async {
     firebase_storage.FirebaseStorage storage =
         firebase_storage.FirebaseStorage.instance;
 
     firebase_storage.Reference referenceStorage =
         storage.ref().child("examples");
 
-    referenceStorage.child("pepito.webp").putFile(File(image!.path));
+    String name = DateTime.now().toString();
+
+    String temp = mime(image!.path) ?? "";
+
+    String extension = temp.split("/")[1];
+
+    firebase_storage.TaskSnapshot uploadTask = await referenceStorage
+        .child("$name.$extension")
+        .putFile(File(image!.path));
+
+    return await uploadTask.ref.getDownloadURL();
   }
 
   @override
