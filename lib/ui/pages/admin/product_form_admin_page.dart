@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
+import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
@@ -18,6 +23,16 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   final TextEditingController sizeController = TextEditingController();
 
   List<double> sizes = [];
+
+  ImagePicker imagePicker = ImagePicker();
+  XFile? image;
+
+  Future<void> getImageGallery() async {
+    image = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +162,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     onTap: () {
                       double size = double.parse(sizeController.text);
                       sizes.add(size);
+                      sizeController.clear();
                       setState(() {});
                     },
                     child: Container(
@@ -188,18 +204,42 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                                 text:
                                     "Talla: ${sizes[sizes.length - index - 1]}"),
                             trailing: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete_rounded,
                                 size: 20.0,
                                 color: Colors.redAccent,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                sizes.removeAt(sizes.length - index - 1);
+                                setState(() {});
+                              },
                             ),
                           );
                         },
                       )
                     : Center(child: H5(text: "Aún no hay tallas agregadas.")),
               ),
+              spacing30,
+              CommonButtonWidget(
+                color: BrandColor.primaryFontColor,
+                text: "Galería",
+                icon: AssetData.iconRocket,
+                onPressed: () {
+                  getImageGallery();
+                },
+              ),
+              spacing20,
+              image != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(14.0),
+                      child: Image.file(
+                        File(image!.path),
+                        width: double.infinity,
+                        height: ResponsiveUI.pDiagonal(context, 0.33),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : const SizedBox(),
               spacing40,
             ],
           ),
