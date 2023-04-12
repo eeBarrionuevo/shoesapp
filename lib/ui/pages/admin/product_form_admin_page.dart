@@ -23,7 +23,9 @@ class ProductFormAdminPage extends StatefulWidget {
 
 class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   final TextEditingController nameController = TextEditingController();
-
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+  final TextEditingController stockController = TextEditingController();
   final TextEditingController sizeController = TextEditingController();
 
   List<double> sizes = [];
@@ -71,6 +73,27 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
         .putFile(File(image!.path));
 
     return await uploadTask.ref.getDownloadURL();
+  }
+
+  registerProduct() async {
+    CollectionReference productReference =
+        FirebaseFirestore.instance.collection("products");
+
+    String urlImage = await uploadImageStorage();
+
+    productReference.add(
+      {
+        "name": nameController.text,
+        "price": double.parse(priceController.text),
+        "discount": int.parse(discountController.text),
+        "stock": int.parse(stockController.text),
+        "brand": idBrand,
+        "status": true,
+        "sizes": sizes,
+        "created": DateTime.now(),
+        "image": urlImage,
+      },
+    );
   }
 
   @override
@@ -148,7 +171,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                           label: "Precio (S/.)",
                           hintText: "Precio",
                           icon: AssetData.iconDollar,
-                          controller: nameController,
+                          controller: priceController,
                           inputType: InputTypeEnum.text,
                         ),
                       ),
@@ -158,7 +181,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                           label: "Descuento (%)",
                           hintText: "Descuento",
                           icon: AssetData.iconOffer,
-                          controller: nameController,
+                          controller: discountController,
                           inputType: InputTypeEnum.text,
                         ),
                       ),
@@ -172,7 +195,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                           label: "Stock",
                           hintText: "Stock",
                           icon: AssetData.iconShape,
-                          controller: nameController,
+                          controller: stockController,
                           inputType: InputTypeEnum.text,
                         ),
                       ),
@@ -292,7 +315,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                 text: "Agregar producto",
                 color: BrandColor.secondaryColor,
                 onPressed: () {
-                  uploadImageStorage();
+                  registerProduct();
                 },
               ),
             ),
