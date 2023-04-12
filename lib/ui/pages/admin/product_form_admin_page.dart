@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
+import 'package:shoesappclient/models/brand_model.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_input_widget.dart';
@@ -25,9 +27,24 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   final TextEditingController sizeController = TextEditingController();
 
   List<double> sizes = [];
+  List<BrandModel> brands = [];
+  String idBrand = "";
 
   ImagePicker imagePicker = ImagePicker();
   XFile? image;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    FirestoreService firestoreService = FirestoreService();
+    brands = await firestoreService.getBrands();
+    idBrand = brands.first.id!;
+    setState(() {});
+  }
 
   Future<void> getImageGallery() async {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -104,26 +121,23 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                       ],
                     ),
                     child: DropdownButton(
-                      value: "Adidas",
+                      value: idBrand,
                       isExpanded: true,
                       borderRadius: BorderRadius.circular(20.0),
                       elevation: 6,
                       underline: const SizedBox(),
-                      items: [
-                        DropdownMenuItem(
-                          child: H5(text: "Adidas"),
-                          value: "Adidas",
-                        ),
-                        DropdownMenuItem(
-                          child: H5(text: "Nike"),
-                          value: "Nike",
-                        ),
-                        DropdownMenuItem(
-                          child: H5(text: "New Balance"),
-                          value: "New Balance",
-                        ),
-                      ],
-                      onChanged: (value) {},
+                      items: brands
+                          .map(
+                            (e) => DropdownMenuItem(
+                              child: H5(text: e.name),
+                              value: e.id,
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (String? value) {
+                        idBrand = value!;
+                        setState(() {});
+                      },
                     ),
                   ),
                   spacing20,
