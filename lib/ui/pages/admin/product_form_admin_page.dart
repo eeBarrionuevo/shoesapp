@@ -11,6 +11,7 @@ import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:shoesappclient/utils/asset_data.dart';
 import 'package:shoesappclient/utils/responsive.dart';
 import 'package:shoesappclient/utils/types.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class ProductFormAdminPage extends StatefulWidget {
   @override
@@ -32,6 +33,16 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
     if (image != null) {
       setState(() {});
     }
+  }
+
+  uploadImageStorage() {
+    firebase_storage.FirebaseStorage storage =
+        firebase_storage.FirebaseStorage.instance;
+
+    firebase_storage.Reference referenceStorage =
+        storage.ref().child("examples");
+
+    referenceStorage.child("pepito.webp").putFile(File(image!.path));
   }
 
   @override
@@ -255,7 +266,9 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
               child: CommonButtonWidget(
                 text: "Agregar producto",
                 color: BrandColor.secondaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  uploadImageStorage();
+                },
               ),
             ),
           ),
