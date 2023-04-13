@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:shoesappclient/models/brand_model.dart';
+import 'package:shoesappclient/models/product_model.dart';
 import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
@@ -80,24 +81,19 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   }
 
   registerProduct() async {
-    CollectionReference productReference =
-        FirebaseFirestore.instance.collection("products");
-
+    FirestoreService firestoreService = FirestoreService();
     String urlImage = await uploadImageStorage();
-
-    productReference.add(
-      {
-        "name": nameController.text,
-        "price": double.parse(priceController.text),
-        "discount": int.parse(discountController.text),
-        "stock": int.parse(stockController.text),
-        "brand": idBrand,
-        "status": true,
-        "sizes": sizes,
-        "created": DateTime.now(),
-        "image": urlImage,
-      },
+    ProductModel product = ProductModel(
+      name: nameController.text,
+      price: double.parse(priceController.text),
+      image: urlImage,
+      discount: int.parse(discountController.text),
+      status: true,
+      stock: int.parse(stockController.text),
+      brand: idBrand,
+      sizes: sizes,
     );
+    firestoreService.registerProduct(product);
   }
 
   @override
