@@ -115,6 +115,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
     FirestoreService firestoreService = FirestoreService();
 
     ProductModel product = ProductModel(
+      id: widget.productModel!.id,
       name: nameController.text,
       price: double.parse(priceController.text),
       image: "",
@@ -132,7 +133,9 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
       product.image = widget.productModel!.image;
     }
 
-    firestoreService.updateProduct(product);
+    await firestoreService.updateProduct(product);
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 
   @override
