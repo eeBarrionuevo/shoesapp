@@ -45,6 +45,16 @@ class ProductAdminPage extends StatelessWidget {
                     docs[index].data() as Map<String, dynamic>;
                 ProductModel product = ProductModel.fromJson(data);
                 return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductFormAdminPage(
+                          productModel: product,
+                        ),
+                      ),
+                    );
+                  },
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(12.0),
                     child: CachedNetworkImage(

@@ -18,6 +18,8 @@ import 'package:shoesappclient/utils/types.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class ProductFormAdminPage extends StatefulWidget {
+  ProductModel? productModel;
+  ProductFormAdminPage({this.productModel});
   @override
   State<ProductFormAdminPage> createState() => _ProductFormAdminPageState();
 }
@@ -49,6 +51,15 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
     FirestoreService firestoreService = FirestoreService();
     brands = await firestoreService.getBrands();
     idBrand = brands.first.id!;
+
+    if (widget.productModel != null) {
+      nameController.text = widget.productModel!.name;
+      priceController.text = widget.productModel!.price.toStringAsFixed(2);
+      discountController.text = widget.productModel!.discount.toString();
+      stockController.text = widget.productModel!.stock.toString();
+      sizes = widget.productModel!.sizes;
+    }
+
     isLoading = false;
     setState(() {});
   }
@@ -93,7 +104,11 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
       brand: idBrand,
       sizes: sizes,
     );
-    firestoreService.registerProduct(product);
+    String id = await firestoreService.registerProduct(product);
+    if (id.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    }
   }
 
   @override
