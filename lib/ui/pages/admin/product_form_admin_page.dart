@@ -313,7 +313,8 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                           ? FileImage(File(image!.path))
                           : widget.productModel != null
                               ? NetworkImage(widget.productModel!.image)
-                              : AssetImage("") as ImageProvider,
+                              : const AssetImage(AssetData.imagePlaceholder)
+                                  as ImageProvider,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: ResponsiveUI.pDiagonal(context, 0.3),
