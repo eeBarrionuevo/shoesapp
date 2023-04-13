@@ -94,4 +94,10 @@ class FirestoreService {
     DocumentReference doc = await productReference.add(product.toJson());
     return doc.id;
   }
+
+  Future<void> updateProduct(ProductModel model) async {
+    CollectionReference productReference =
+        FirebaseFirestore.instance.collection("products");
+    await productReference.doc("asdasdasdasd").update(model.toJson());
+  }
 }

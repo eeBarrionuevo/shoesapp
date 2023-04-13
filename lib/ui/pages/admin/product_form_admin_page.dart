@@ -58,8 +58,8 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
       discountController.text = widget.productModel!.discount.toString();
       stockController.text = widget.productModel!.stock.toString();
       sizes = widget.productModel!.sizes;
+      idBrand = widget.productModel!.brand;
     }
-
     isLoading = false;
     setState(() {});
   }
@@ -93,21 +93,28 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
 
   registerProduct() async {
     FirestoreService firestoreService = FirestoreService();
-    String urlImage = await uploadImageStorage();
-    ProductModel product = ProductModel(
-      name: nameController.text,
-      price: double.parse(priceController.text),
-      image: urlImage,
-      discount: int.parse(discountController.text),
-      status: true,
-      stock: int.parse(stockController.text),
-      brand: idBrand,
-      sizes: sizes,
-    );
-    String id = await firestoreService.registerProduct(product);
-    if (id.isNotEmpty) {
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+
+    if (widget.productModel == null) {
+      //Agregar un nuevo producto
+      String urlImage = await uploadImageStorage();
+      ProductModel product = ProductModel(
+        name: nameController.text,
+        price: double.parse(priceController.text),
+        image: urlImage,
+        discount: int.parse(discountController.text),
+        status: true,
+        stock: int.parse(stockController.text),
+        brand: idBrand,
+        sizes: sizes,
+      );
+      String id = await firestoreService.registerProduct(product);
+      if (id.isNotEmpty) {
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      }
+    } else {
+      //Modificar un producto
+
     }
   }
 
@@ -119,7 +126,9 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
       appBar: AppBar(
         backgroundColor: BrandColor.secondaryColor,
         title: H4(
-          text: "Agregar Producto",
+          text: widget.productModel != null
+              ? "Actualizar Producto"
+              : "Agregar Producto",
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -330,7 +339,9 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
             child: Container(
               margin: const EdgeInsets.all(12.0),
               child: CommonButtonWidget(
-                text: "Agregar producto",
+                text: widget.productModel != null
+                    ? "Actualizar Producto"
+                    : "Agregar Producto",
                 color: BrandColor.secondaryColor,
                 onPressed: () {
                   registerProduct();
