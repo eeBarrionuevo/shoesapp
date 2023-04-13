@@ -1,4 +1,5 @@
 class ProductModel {
+  String? id;
   String name;
   double price;
   String image;
@@ -9,6 +10,7 @@ class ProductModel {
   List<double> sizes;
 
   ProductModel({
+    this.id,
     required this.name,
     required this.price,
     required this.image,

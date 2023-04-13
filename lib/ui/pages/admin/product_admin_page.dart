@@ -43,7 +43,10 @@ class ProductAdminPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 Map<String, dynamic> data =
                     docs[index].data() as Map<String, dynamic>;
+
                 ProductModel product = ProductModel.fromJson(data);
+                product.id = docs[index].id;
+
                 return ListTile(
                   onTap: () {
                     Navigator.push(

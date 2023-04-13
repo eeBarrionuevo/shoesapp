@@ -98,6 +98,6 @@ class FirestoreService {
   Future<void> updateProduct(ProductModel model) async {
     CollectionReference productReference =
         FirebaseFirestore.instance.collection("products");
-    await productReference.doc("asdasdasdasd").update(model.toJson());
+    await productReference.doc(model.id).update(model.toJson());
   }
 }

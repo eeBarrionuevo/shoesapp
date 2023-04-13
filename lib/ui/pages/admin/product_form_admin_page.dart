@@ -93,29 +93,46 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
 
   registerProduct() async {
     FirestoreService firestoreService = FirestoreService();
-
-    if (widget.productModel == null) {
-      //Agregar un nuevo producto
-      String urlImage = await uploadImageStorage();
-      ProductModel product = ProductModel(
-        name: nameController.text,
-        price: double.parse(priceController.text),
-        image: urlImage,
-        discount: int.parse(discountController.text),
-        status: true,
-        stock: int.parse(stockController.text),
-        brand: idBrand,
-        sizes: sizes,
-      );
-      String id = await firestoreService.registerProduct(product);
-      if (id.isNotEmpty) {
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
-      }
-    } else {
-      //Modificar un producto
-
+    String urlImage = await uploadImageStorage();
+    ProductModel product = ProductModel(
+      name: nameController.text,
+      price: double.parse(priceController.text),
+      image: urlImage,
+      discount: int.parse(discountController.text),
+      status: true,
+      stock: int.parse(stockController.text),
+      brand: idBrand,
+      sizes: sizes,
+    );
+    String id = await firestoreService.registerProduct(product);
+    if (id.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
     }
+  }
+
+  updateProduct() async {
+    FirestoreService firestoreService = FirestoreService();
+
+    ProductModel product = ProductModel(
+      name: nameController.text,
+      price: double.parse(priceController.text),
+      image: "",
+      discount: int.parse(discountController.text),
+      status: true,
+      stock: int.parse(stockController.text),
+      brand: idBrand,
+      sizes: sizes,
+    );
+
+    if (image != null) {
+      String urlImage = await uploadImageStorage();
+      product.image = urlImage;
+    } else {
+      product.image = widget.productModel!.image;
+    }
+
+    firestoreService.updateProduct(product);
   }
 
   @override
@@ -344,7 +361,11 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     : "Agregar Producto",
                 color: BrandColor.secondaryColor,
                 onPressed: () {
-                  registerProduct();
+                  if (widget.productModel == null) {
+                    registerProduct();
+                  } else {
+                    updateProduct();
+                  }
                 },
               ),
             ),
