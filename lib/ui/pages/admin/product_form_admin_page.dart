@@ -34,6 +34,7 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
 
   ImagePicker imagePicker = ImagePicker();
   XFile? image;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -42,9 +43,12 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
   }
 
   Future<void> getData() async {
+    isLoading = true;
+    setState(() {});
     FirestoreService firestoreService = FirestoreService();
     brands = await firestoreService.getBrands();
     idBrand = brands.first.id!;
+    isLoading = false;
     setState(() {});
   }
 
@@ -320,6 +324,12 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
               ),
             ),
           ),
+          isLoading
+              ? Container(
+                  color: Colors.white,
+                  child: loadingWidget,
+                )
+              : const SizedBox(),
         ],
       ),
     );
