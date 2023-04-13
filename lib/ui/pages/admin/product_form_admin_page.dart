@@ -306,17 +306,19 @@ class _ProductFormAdminPageState extends State<ProductFormAdminPage> {
                     },
                   ),
                   spacing20,
-                  image != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(14.0),
-                          child: Image.file(
-                            File(image!.path),
-                            width: double.infinity,
-                            height: ResponsiveUI.pDiagonal(context, 0.33),
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : const SizedBox(),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14.0),
+                    child: Image(
+                      image: image != null
+                          ? FileImage(File(image!.path))
+                          : widget.productModel != null
+                              ? NetworkImage(widget.productModel!.image)
+                              : AssetImage("") as ImageProvider,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: ResponsiveUI.pDiagonal(context, 0.3),
+                    ),
+                  ),
                   spacing40,
                 ],
               ),
