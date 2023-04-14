@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:excel/excel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -7,6 +8,8 @@ import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class ReportAdminPage extends StatelessWidget {
   exportExcel() async {
@@ -21,6 +24,25 @@ class ReportAdminPage extends StatelessWidget {
       ..createSync(recursive: true)
       ..writeAsBytesSync(bytes!);
     await OpenFilex.open(fileExcel.path);
+  }
+
+  exportPDF() async {
+    final pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Text("Hola");
+        },
+      ),
+    );
+
+    Uint8List bytes = await pdf.save();
+    Directory directory = await getApplicationDocumentsDirectory();
+    File pdfFile = File("${directory.path}/prueba_pdf.pdf")
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(bytes);
+    await OpenFilex.open(pdfFile.path);
   }
 
   @override
@@ -50,7 +72,9 @@ class ReportAdminPage extends StatelessWidget {
             CommonButtonWidget(
               text: "Generar PDF",
               color: BrandColor.primaryFontColor,
-              onPressed: () {},
+              onPressed: () {
+                exportPDF();
+              },
             ),
           ],
         ),

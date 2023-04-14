@@ -51,6 +51,7 @@ dependencies:
   excel: ^2.0.4
   path_provider: ^2.0.14
   open_filex: ^4.3.2
+  pdf: ^3.10.1
 
 dev_dependencies:
   flutter_test:
