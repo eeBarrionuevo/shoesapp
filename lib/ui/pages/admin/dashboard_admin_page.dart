@@ -1,15 +1,50 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DashboardAdminPage extends StatelessWidget {
+  final betweenSpace = 0.2;
+
   List<ChartData> data = [
     ChartData("Lunes", 50),
     ChartData("Martes", 30),
     ChartData("Miercoles", 40),
     ChartData("Jueves", 20),
   ];
+
+  BarChartGroupData generateGroupData(
+    int x,
+    double pilates,
+    double quickWorkout,
+    double cycling,
+  ) {
+    return BarChartGroupData(
+      x: x,
+      groupVertically: true,
+      barRods: [
+        BarChartRodData(
+          fromY: 0,
+          toY: pilates,
+          color: Colors.red,
+          width: 5,
+        ),
+        BarChartRodData(
+          fromY: pilates + betweenSpace,
+          toY: pilates + betweenSpace + quickWorkout,
+          color: Colors.blue,
+          width: 5,
+        ),
+        BarChartRodData(
+          fromY: pilates + betweenSpace + quickWorkout + betweenSpace,
+          toY: pilates + betweenSpace + quickWorkout + betweenSpace + cycling,
+          color: Colors.amber,
+          width: 5,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +129,27 @@ class DashboardAdminPage extends StatelessWidget {
                 LegendModel('Quick workouts', Colors.blue),
                 LegendModel('Cycling', Colors.amber),
               ],
+            ),
+            AspectRatio(
+              aspectRatio: 2,
+              child: BarChart(
+                BarChartData(
+                  barGroups: [
+                    generateGroupData(0, 2, 3, 2),
+                    generateGroupData(1, 2, 5, 1.7),
+                    generateGroupData(2, 1.3, 3.1, 2.8),
+                    generateGroupData(3, 3.1, 4, 3.1),
+                    generateGroupData(4, 0.8, 3.3, 3.4),
+                    generateGroupData(5, 2, 5.6, 1.8),
+                    generateGroupData(6, 1.3, 3.2, 2),
+                    generateGroupData(7, 2.3, 3.2, 3),
+                    generateGroupData(8, 2, 4.8, 2.5),
+                    generateGroupData(9, 1.2, 3.2, 2.5),
+                    generateGroupData(10, 1, 4.8, 3),
+                    generateGroupData(11, 2, 4.4, 2.8),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
