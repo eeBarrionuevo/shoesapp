@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shoesappclient/models/product_model.dart';
+import 'package:shoesappclient/services/remote/firestore_service.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
 import 'package:shoesappclient/ui/widgets/common_button_widget.dart';
 import 'package:shoesappclient/ui/widgets/common_text.dart';
@@ -13,12 +15,46 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shoesappclient/utils/asset_data.dart';
 
-class ReportAdminPage extends StatelessWidget {
+class ReportAdminPage extends StatefulWidget {
+  @override
+  State<ReportAdminPage> createState() => _ReportAdminPageState();
+}
+
+class _ReportAdminPageState extends State<ReportAdminPage> {
+  FirestoreService firestoreService = FirestoreService();
+  List<ProductModel> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    firestoreService.getProducts().then((value) {
+      products = value;
+    });
+  }
+
   exportExcel() async {
     Excel myExcel = Excel.createExcel();
     Sheet? sheet = myExcel.sheets[myExcel.getDefaultSheet() as String];
+    //cabeceras
     sheet!.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0)).value =
-        "Julioooo";
+        "Producto";
+    sheet.cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: 0)).value =
+        "Marca";
+    sheet.cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: 0)).value =
+        "Precio";
+    //datos
+
+    for (int i = 0; i < products.length; i++) {
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 1))
+          .value = products[i].name;
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: i + 1))
+          .value = products[i].brand;
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: i + 1))
+          .value = products[i].price;
+    }
 
     List<int>? bytes = myExcel.save();
     Directory directory = await getApplicationDocumentsDirectory();
@@ -81,7 +117,7 @@ class ReportAdminPage extends StatelessWidget {
               height: 20.0,
             ),
             pw.ListView.builder(
-              itemCount: 30,
+              itemCount: products.length,
               itemBuilder: (context, index) {
                 return pw.Container(
                   margin: const pw.EdgeInsets.symmetric(vertical: 8.0),
@@ -101,6 +137,17 @@ class ReportAdminPage extends StatelessWidget {
                           pw.Text("Nombre del producto: "),
                           pw.Text("Precio: "),
                           pw.Text("Descuento: "),
+                        ],
+                      ),
+                      pw.SizedBox(
+                        width: 12.0,
+                      ),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(products[index].name),
+                          pw.Text(products[index].price.toStringAsFixed(2)),
+                          pw.Text(products[index].discount.toStringAsFixed(2)),
                         ],
                       ),
                     ],
