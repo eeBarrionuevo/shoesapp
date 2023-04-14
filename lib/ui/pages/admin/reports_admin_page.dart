@@ -29,14 +29,63 @@ class ReportAdminPage extends StatelessWidget {
   exportPDF() async {
     final pdf = pw.Document();
     pdf.addPage(
-      pw.Page(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return pw.Text("Hola");
+          return [
+            pw.Text(
+              "Aurora Studio",
+              style: pw.TextStyle(
+                fontSize: 16.0,
+                fontWeight: pw.FontWeight.bold,
+              ),
+            ),
+            pw.Text(
+              "Av. Gonzales Prada 113 - Cayma",
+              style: pw.TextStyle(
+                fontSize: 14.0,
+                fontWeight: pw.FontWeight.normal,
+              ),
+            ),
+            pw.Text(
+              "Tel. 965 343 123",
+              style: pw.TextStyle(
+                fontSize: 14.0,
+                fontWeight: pw.FontWeight.normal,
+              ),
+            ),
+            pw.ListView.builder(
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return pw.Container(
+                  margin: const pw.EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const pw.EdgeInsets.all(10.0),
+                  decoration: pw.BoxDecoration(
+                    borderRadius: pw.BorderRadius.circular(10.0),
+                    border: pw.Border.all(
+                      color: PdfColors.black,
+                      width: 0.7,
+                    ),
+                  ),
+                  child: pw.Row(
+                    children: [
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Nombre del producto: "),
+                          pw.Text("Precio: "),
+                          pw.Text("Descuento: "),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ];
         },
       ),
     );
-
     Uint8List bytes = await pdf.save();
     Directory directory = await getApplicationDocumentsDirectory();
     File pdfFile = File("${directory.path}/prueba_pdf.pdf")
