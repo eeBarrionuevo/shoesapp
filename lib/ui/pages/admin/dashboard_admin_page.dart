@@ -134,6 +134,22 @@ class DashboardAdminPage extends StatelessWidget {
               aspectRatio: 2,
               child: BarChart(
                 BarChartData(
+                  alignment: BarChartAlignment.spaceBetween,
+                  // titlesData: FlTitlesData(
+                  //   leftTitles: AxisTitles(),
+                  //   rightTitles: AxisTitles(),
+                  //   topTitles: AxisTitles(),
+                  //   bottomTitles: AxisTitles(
+                  //     sideTitles: SideTitles(
+                  //       showTitles: true,
+                  //       // getTitlesWidget: bottomTitles,
+                  //       reservedSize: 20,
+                  //     ),
+                  //   ),
+                  // ),
+                  barTouchData: BarTouchData(enabled: false),
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(show: false),
                   barGroups: [
                     generateGroupData(0, 2, 3, 2),
                     generateGroupData(1, 2, 5, 1.7),
@@ -148,6 +164,29 @@ class DashboardAdminPage extends StatelessWidget {
                     generateGroupData(10, 1, 4.8, 3),
                     generateGroupData(11, 2, 4.4, 2.8),
                   ],
+                  maxY: 11 + (betweenSpace * 3),
+                  extraLinesData: ExtraLinesData(
+                    horizontalLines: [
+                      HorizontalLine(
+                        y: 3.3,
+                        color: Colors.red,
+                        strokeWidth: 1,
+                        dashArray: [20, 4],
+                      ),
+                      HorizontalLine(
+                        y: 8,
+                        color: Colors.blue,
+                        strokeWidth: 1,
+                        dashArray: [20, 4],
+                      ),
+                      HorizontalLine(
+                        y: 11,
+                        color: Colors.amber,
+                        strokeWidth: 1,
+                        dashArray: [20, 4],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
