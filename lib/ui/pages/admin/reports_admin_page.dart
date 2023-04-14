@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shoesappclient/ui/general/brand_color.dart';
@@ -10,6 +11,7 @@ import 'package:shoesappclient/ui/widgets/common_text.dart';
 import 'package:shoesappclient/ui/widgets/common_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:shoesappclient/utils/asset_data.dart';
 
 class ReportAdminPage extends StatelessWidget {
   exportExcel() async {
@@ -27,12 +29,33 @@ class ReportAdminPage extends StatelessWidget {
   }
 
   exportPDF() async {
+    ByteData byteData = await rootBundle.load(AssetData.imageLogo);
+    Uint8List bytesImage = byteData.buffer.asUint8List();
+
     final pdf = pw.Document();
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
+        header: (context) {
+          return pw.Container(
+            height: 20,
+            width: double.infinity,
+            color: PdfColors.blue,
+          );
+        },
+        footer: (context) {
+          return pw.Container(
+            height: 20,
+            width: double.infinity,
+            color: PdfColors.amber,
+          );
+        },
         build: (pw.Context context) {
           return [
+            pw.Image(
+              pw.MemoryImage(bytesImage),
+              height: 44.0,
+            ),
             pw.Text(
               "Aurora Studio",
               style: pw.TextStyle(
@@ -53,6 +76,9 @@ class ReportAdminPage extends StatelessWidget {
                 fontSize: 14.0,
                 fontWeight: pw.FontWeight.normal,
               ),
+            ),
+            pw.SizedBox(
+              height: 20.0,
             ),
             pw.ListView.builder(
               itemCount: 30,
